@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Jura", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Jura", "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-ids-purple: #7B2FBE;
+  --color-ids-violet: #4F46E5;
+  --color-ids-black: #0A0A0F;
+  --color-ids-magenta: #C026D3;
+  --color-ids-grey: #A1A1AA;
+  --color-ids-pro: #5245e3;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background-color: #0A0A0F;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ids-purple);
+}
+
+/* Gradients and background glow patterns */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(123, 47, 190, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 47, 190, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.glow-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card:hover {
+  box-shadow: 0 0 30px rgba(192, 38, 211, 0.15);
+  border-color: rgba(192, 38, 211, 0.4);
+  transform: translateY(-2px);
+}

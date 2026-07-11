@@ -1,0 +1,6 @@
+{
+  "name": "iWebNext",
+  "description": "iWebNext - Impulse Digital Solutions. Premium Cybersecurity, Web Development, Branding, Media Monitoring, and AI SEO & AEO in California & UAE.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

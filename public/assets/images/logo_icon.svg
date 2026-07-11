@@ -1,0 +1,28 @@
+<svg viewBox="10 10 200 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="200" height="100">
+  <defs>
+    <!-- Core iDS Monogram Gradient matching the elegant deep metallic purple/violet/magenta profile -->
+    <linearGradient id="logoIDSGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C026D3" />
+      <stop offset="50%" stop-color="#7B2FBE" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+
+    <!-- Core drop shadow for three-dimensional pop -->
+    <filter id="logoGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#7B2FBE" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- ==================== LEFT: iDS MONOGRAM ==================== -->
+  <g filter="url(#logoGlow)">
+    <!-- Stylized lower-case "i" -->
+    <rect x="25" y="24" width="16" height="11" rx="2" fill="url(#logoIDSGrad)" />
+    <path d="M25 43.5 L41 41.5 L41 96 L25 96 Z" fill="url(#logoIDSGrad)" />
+
+    <!-- Stylized uppercase "D" with sleek futuristic inner-carve and outer shape -->
+    <path d="M51 25 L92 25 C112 25 125 38 125 60 C125 82 112 96 92 96 L51 96 Z M67 39 L67 82 L91 82 C102 82 108 74 108 60 C108 46 102 39 91 39 Z" fill="url(#logoIDSGrad)" />
+
+    <!-- Stylized wide futuristic "S" with sharp split-angle grooves -->
+    <path d="M135 25 L190 25 L190 38 L151 38 C144 38 141 41 141 46 C141 51 145 53 151 54 L178 57 C190 58 196 66 196 77 C196 89 184 96 166 96 L111 96 L111 83 L153 83 C160 83 163 80 163 75 C163 70 159 68 153 67 L128 64 C117 62 111 54 111 44 C111 31 120 25 135 25 Z" fill="url(#logoIDSGrad)" />
+  </g>
+</svg>
