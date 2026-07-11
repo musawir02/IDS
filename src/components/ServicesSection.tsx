@@ -83,7 +83,7 @@ const pillarColors: Record<
   "pillar-3": {
     bgGlow: "from-indigo-600/20 to-transparent",
     text: "text-indigo-400",
-    label: "03 / CYBERSECURITY & IT INFRASTRUCTURE",
+    label: "03 / CYBERSECURITY",
     border: "border-indigo-500/20",
     icon: Lock,
   },

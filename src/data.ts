@@ -206,7 +206,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "A well built app deepens customer loyalty and opens a direct, high engagement channel to your audience."
       },
       {
-        id: 24,
+        id: 9,
         name: "Web Application Development",
         description: "Custom web applications designed to streamline business operations, automate workflows, and deliver secure, scalable digital solutions.",
         whatItIs: "We build secure, high-performance web applications tailored to your business needs, from customer portals and internal dashboards to SaaS platforms and enterprise systems.",
@@ -224,13 +224,13 @@ export const PILLARS: Pillar[] = [
   },
   {
     id: "pillar-3",
-    name: "PILLAR III: CYBERSECURITY & IT",
-    shortName: "Cybersecurity & IT",
+    name: "PILLAR III: CYBERSECURITY",
+    shortName: "Cybersecurity",
     icon: "Lock",
     description: "Growth without security is exposure.",
     services: [
       {
-        id: 9,
+        id: 10,
         name: "Managed Security Services",
         description: "Continuous, enterprise grade protection and monitoring of your systems, networks, and data, security as an always on service, not a one time setup.",
         whatItIs: "Continuous, enterprise grade protection and monitoring of your systems, networks, and data, security as an always on service, not a one time setup.",
@@ -245,7 +245,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "Cyber threats are constant and automated; ongoing protection is the difference between catching an attack early and discovering a breach too late."
       },
       {
-        id: 10,
+        id: 11,
         name: "Cloud & Microsoft Solutions",
         description: "Setup, migration, and management of your cloud and Microsoft environment for secure, reliable, productive operations.",
         whatItIs: "Setup, migration, and management of your cloud and Microsoft environment for secure, reliable, productive operations.",
@@ -259,23 +259,9 @@ export const PILLARS: Pillar[] = [
         ],
         whyItMatters: "A properly configured cloud environment is faster, safer, and cheaper to run, while a misconfigured one is one of the most common ways businesses get breached."
       },
+
       {
-        id: 11,
-        name: "Core IT Infrastructure Management",
-        description: "Day to day management of the IT backbone your business runs on, networks, servers, devices, and support.",
-        whatItIs: "Day to day management of the IT backbone your business runs on, networks, servers, devices, and support.",
-        included: [
-          "Network & server management",
-          "Device & endpoint management",
-          "IT helpdesk & support",
-          "System monitoring",
-          "Patch & update management",
-          "Vendor coordination"
-        ],
-        whyItMatters: "Reliable infrastructure keeps your team productive and your operations running; downtime and IT chaos cost real money and momentum."
-      },
-      {
-        id: 12,
+        id:12,
         name: "Penetration Testing & Vulnerability Assessment",
         description: "Controlled, authorized testing that finds the weaknesses in your systems before real attackers do.",
         whatItIs: "Controlled, authorized testing that finds the weaknesses in your systems before real attackers do.",
