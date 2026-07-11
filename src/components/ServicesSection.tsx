@@ -53,6 +53,7 @@ const serviceIconMap: Record<number, React.ComponentType<any>> = {
   21: Map, // MENA Market Research
   22: Compass, // GCC Marketing Execution
   23: Briefcase, // UAE Branding
+  24: Terminal, // Web Application Development
 };
 
 const pillarColors: Record<

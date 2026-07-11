@@ -204,6 +204,21 @@ export const PILLARS: Pillar[] = [
           "Ongoing updates & support"
         ],
         whyItMatters: "A well built app deepens customer loyalty and opens a direct, high engagement channel to your audience."
+      },
+      {
+        id: 24,
+        name: "Web Application Development",
+        description: "Custom web applications designed to streamline business operations, automate workflows, and deliver secure, scalable digital solutions.",
+        whatItIs: "We build secure, high-performance web applications tailored to your business needs, from customer portals and internal dashboards to SaaS platforms and enterprise systems.",
+        included: [
+          "Custom frontend & backend development",
+          "Responsive UI/UX implementation",
+          "Database design & management",
+          "User authentication & role-based access",
+          "API integrations & third-party services",
+          "Cloud deployment & performance optimization"
+        ],
+        whyItMatters: "A custom web application is built around your business processes, helping automate tasks, improve efficiency, enhance user experience, and support long-term growth."
       }
     ]
   },
