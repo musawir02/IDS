@@ -181,7 +181,7 @@ export default function ServicesSection() {
                 </div>
 
                 {/* Grid of services in this specific Pillar */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10 font-sans">
+                <div className="flex flex-wrap justify-center gap-6 relative z-10 font-sans">
                   {pillar.services.map((srv) => {
                     const ServiceIcon = serviceIconMap[srv.id] || ShieldCheck;
 
@@ -189,7 +189,7 @@ export default function ServicesSection() {
                       <div
                         key={srv.id}
                         onClick={() => handleOpenDetail(srv)}
-                        className="p-6 bg-gradient-to-b from-ids-violet/20 border border-white/5 hover:border-ids-purple/40 rounded-2xl flex flex-col justify-between hover:bg-[#12121A]/90 transition-all duration-300 min-h-[200px] group relative cursor-pointer"
+                        className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] p-6 bg-gradient-to-b from-ids-violet/20 border border-white/5 hover:border-ids-purple/40 rounded-2xl flex flex-col justify-between hover:bg-[#12121A]/90 transition-all duration-300 min-h-[200px] group relative cursor-pointer"
                       >
                         {/* Hover color accent strip */}
                         <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl bg-gradient-to-r from-ids-purple to-ids-violet transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
