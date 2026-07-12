@@ -4,17 +4,21 @@ import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 
-dotenv.config();
+// Use .env.local for local development. In production, Hostinger injects these
+// environment variables directly and dotenv will not overwrite them.
+dotenv.config({ path: ".env.local" });
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
 
 // Setup target Gemini API key
-const apiKey = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "MY_GEMINI_API_KEY"
-  ? process.env.GEMINI_API_KEY
-  : "AIzaSyCLKX2tohQTHF9Gk06XqqlT-tXUjVSOYBU";
+const apiKey = process.env.GEMINI_API_KEY?.trim();
+
+if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
+  throw new Error("GEMINI_API_KEY must be set before starting the server.");
+}
 
 const ai = new GoogleGenAI({
   apiKey: apiKey,
