@@ -406,20 +406,6 @@ export const PILLARS: Pillar[] = [
       },
       {
         id: 21,
-        name: "MENA Market Research & Intelligence",
-        description: "On the ground research and consumer intelligence across the MENA region that US only agencies simply can't access.",
-        whatItIs: "On the ground research and consumer intelligence across the MENA region that US only agencies simply can't access.",
-        included: [
-          "Market & competitor research",
-          "Consumer insight",
-          "Sector analysis",
-          "Demand & opportunity sizing",
-          "Cultural & localization intelligence"
-        ],
-        whyItMatters: "Decisions made on real regional data, not assumptions, dramatically raise your odds of success in an unfamiliar market."
-      },
-      {
-        id: 22,
         name: "GCC Marketing Execution",
         description: "Full marketing delivery across the Gulf, executed locally by our Dubai team.",
         whatItIs: "Full marketing delivery across the Gulf, executed locally by our Dubai team.",
@@ -433,7 +419,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "Marketing that's culturally fluent and locally executed performs far better than campaigns simply translated and exported from the US."
       },
       {
-        id: 23,
+        id: 22,
         name: "UAE Branding & Creative Production",
         description: "Region specific branding and creative built to resonate with Gulf audiences.",
         whatItIs: "Region specific branding and creative built to resonate with Gulf audiences.",
