@@ -303,6 +303,20 @@ export const PILLARS: Pillar[] = [
           "Ongoing app monitoring"
         ],
         whyItMatters: "Applications are a top attack target; securing them protects your data, your customers, and the trust your business depends on."
+      },
+      {
+        id: 15,
+        name: "Ethical Hacking & Cybersecurity Expertise",
+        description: "Confidential cybersecurity guidance from experienced ethical hackers and security experts who understand both offensive and defensive security.",
+        whatItIs: "A private, expert-led security service combining real-world ethical hacking experience with defensive cybersecurity expertise to help protect your business from every angle.",
+        included: [
+          "Experienced ethical hacker consultations",
+          "Offensive security assessments",
+          "Defensive security guidance",
+          "Private and confidential advice",
+          "Security support tailored to your needs"
+        ],
+        whyItMatters: "Working with experts who understand how attackers think and how defenders respond helps you identify risks earlier, strengthen your security, and protect your business with confidence."
       }
     ]
   },
@@ -314,7 +328,7 @@ export const PILLARS: Pillar[] = [
     description: "Turn an audience into a business, then take it global.",
     services: [
       {
-        id: 15,
+        id: 16,
         name: "Personal Brand Identity & Positioning",
         description: "A complete personal brand system that turns a profile into a recognizable, authoritative name.",
         whatItIs: "A complete personal brand system that turns a profile into a recognizable, authoritative name.",
@@ -328,7 +342,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "A defined brand makes every post compound your authority instead of just filling a feed, and it's what attracts serious brand partners."
       },
       {
-        id: 16,
+        id: 17,
         name: "Content & Growth Strategy (SEO + AEO)",
         description: "A full growth engine that turns content into reach, audience, and discoverability across platforms and AI search.",
         whatItIs: "A full growth engine that turns content into reach, audience, and discoverability across platforms and AI search.",
@@ -341,7 +355,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "It replaces guesswork and algorithm dependence with a repeatable system for growing the right audience, and being found on Google and AI engines alike."
       },
       {
-        id: 17,
+        id: 18,
         name: "Monetization Systems: Media Kit, Rate Card & Outreach",
         description: "The business infrastructure that turns an audience into income.",
         whatItIs: "The business infrastructure that turns an audience into income.",
@@ -355,7 +369,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "Most creators leave money on the table because they're not packaged to be bought; this makes you easy to hire and confident to charge what you're worth."
       },
       {
-        id: 18,
+        id: 19,
         name: "Brand Partnership & Deal Negotiation",
         description: "Hands-on support securing and negotiating brand deals on your behalf.",
         whatItIs: "Hands-on support securing and negotiating brand deals on your behalf.",
@@ -369,7 +383,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "Better deals, better terms, and partners you might never have reached alone, handled by people who do this for a living."
       },
       {
-        id: 19,
+        id: 20,
         name: "Dubai & Gulf Brand Network Access",
         description: "Direct access to one of the world's most premium creator markets through our on-ground Dubai team and brand network.",
         whatItIs: "Direct access to one of the world's most premium creator markets through our on-ground Dubai team and brand network.",
@@ -391,7 +405,7 @@ export const PILLARS: Pillar[] = [
     description: "The only California partner with a team on the ground in Dubai.",
     services: [
       {
-        id: 20,
+        id: 21,
         name: "UAE Market Entry Strategy",
         description: "A complete, turnkey roadmap for US businesses entering the UAE and Gulf markets.",
         whatItIs: "A complete, turnkey roadmap for US businesses entering the UAE and Gulf markets.",
@@ -405,7 +419,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "The UAE offers extraordinary opportunity but punishes guesswork; a real strategy built by a team on the ground is the difference between expansion and an expensive misstep."
       },
       {
-        id: 21,
+        id: 22,
         name: "GCC Marketing Execution",
         description: "Full marketing delivery across the Gulf, executed locally by our Dubai team.",
         whatItIs: "Full marketing delivery across the Gulf, executed locally by our Dubai team.",
@@ -419,7 +433,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "Marketing that's culturally fluent and locally executed performs far better than campaigns simply translated and exported from the US."
       },
       {
-        id: 22,
+        id: 23,
         name: "UAE Branding & Creative Production",
         description: "Region specific branding and creative built to resonate with Gulf audiences.",
         whatItIs: "Region specific branding and creative built to resonate with Gulf audiences.",
