@@ -27,7 +27,6 @@ type PageType =
   | "challenge"
   | "services"
   | "creators"
-  | "process"
   | "uae-spotlight"
   | "contact";
 
@@ -86,12 +85,19 @@ export default function App() {
         setActivePage("challenge");
       } else if (hash === "#services") {
         setActivePage("services");
-      } else if (hash === "#process") {
-        setActivePage("process");
       } else if (hash === "#uae-spotlight") {
         setActivePage("uae-spotlight");
       } else if (hash === "#contact") {
         setActivePage("contact");
+      } else if (hash === "#process") {
+        setActivePage("home");
+        setTimeout(() => {
+          const element = document.getElementById("process");
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 150);
+        return;
       } else {
         setActivePage("home");
       }
@@ -434,6 +440,8 @@ export default function App() {
               </div>
             </section>
 
+            <HowItWorks />
+
             <ContactSection />
           </>
         )}
@@ -476,19 +484,6 @@ export default function App() {
 
         {activePage === "creators" && (
           <CreatorsPage onBackToHome={handleBackToHome} />
-        )}
-
-        {activePage === "process" && (
-          <div className="pb-16">
-            <PageHeader
-              title="Our 90-Day Execution Paradigm"
-              subtitle="A highly optimized sequence of strategic diagnosis, defensive deployment, campaign scaling, and continuous operational intelligence."
-              category="Execution Roadmap"
-            />
-            <div className="mt-0">
-              <HowItWorks />
-            </div>
-          </div>
         )}
 
         {activePage === "uae-spotlight" && (
