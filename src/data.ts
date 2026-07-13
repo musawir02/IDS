@@ -539,11 +539,6 @@ export const WHY_IDS: WhyIDSPoint[] = [
   },
   {
     id: 9,
-    title: "Long Term Partnership",
-    description: "We measure our success by your growth. Our entire business model is built on long term retainers, not one off projects. When you grow, we grow. That alignment of incentives changes everything."
-  },
-  {
-    id: 10,
     title: "Creator Growth, Globally",
     description: "We turn audiences into secure, monetizable operations, giving you direct access to premium Gulf brand partnerships through our on-ground Dubai team. Your influence, professionalized."
   }
