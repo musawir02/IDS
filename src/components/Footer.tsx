@@ -19,7 +19,11 @@ export default function Footer() {
     },
     // { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Youtube, href: "#", label: "YouTube" },
-    { icon: Instagram, href: "#", label: "Instagram" },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/impulsedigitalsolutions",
+      label: "Instagram",
+    },
   ];
 
   return (
