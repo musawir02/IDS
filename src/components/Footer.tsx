@@ -49,7 +49,7 @@ export default function Footer() {
             </div>
             <p className="text-xs text-slate-400">California, USA</p>
             <p className="font-mono text-[9px] text-slate-500">
-              Huntington Beach Node, CA
+              2007 Delaware ST Huntington Beach, CA 92648, United States
             </p>
           </div>
 
@@ -60,7 +60,8 @@ export default function Footer() {
             </div>
             <p className="text-xs text-slate-400">Dubai, UAE</p>
             <p className="font-mono text-[9px] text-slate-500">
-              Dubai Production City Node (Production Region Nodes)
+              B, Publishing Pavilion - Office 126 - Me'aisem First - Dubai
+              Production City - Dubai
             </p>
           </div>
         </div>

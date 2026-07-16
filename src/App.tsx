@@ -19,6 +19,7 @@ import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import ChatbotWidget from "./components/ChatbotWidget";
 import ScrollToTop from "./components/ScrollToTop";
+import LetsTalkWidget from "./components/LetsTalkWidget";
 import CreatorsPage from "./components/CreatorsPage";
 
 type PageType =
@@ -89,6 +90,15 @@ export default function App() {
         setActivePage("uae-spotlight");
       } else if (hash === "#contact") {
         setActivePage("contact");
+      } else if (hash === "#lets-talk") {
+        setActivePage("home");
+        setTimeout(() => {
+          const element = document.getElementById("contact");
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 150);
+        return;
       } else if (hash === "#process") {
         setActivePage("home");
         setTimeout(() => {
@@ -516,6 +526,7 @@ export default function App() {
       <Footer />
 
       {/* Floating Utilities */}
+      <LetsTalkWidget />
       <ChatbotWidget />
       <ScrollToTop />
     </div>

@@ -119,13 +119,13 @@ export default function ContactSection() {
               <div className="p-5 bg-white/[0.02] border border-white/5 rounded-xl hover:border-ids-purple/20 transition-all duration-300">
                 <div className="text-slate-400 text-[10px] font-mono uppercase tracking-wider">USA Operations Hub</div>
                 <div className="text-white text-xs font-semibold mt-2 font-display">Huntington Beach, California</div>
-                <span className="text-[10px] text-slate-500 font-sans block mt-1">Huntington Beach, CA</span>
+                <span className="text-[10px] text-slate-500 font-sans block mt-1">2007 Delaware ST Huntington Beach, CA 92648, United States</span>
               </div>
 
               <div className="p-5 bg-white/[0.02] border border-white/5 rounded-xl hover:border-ids-magenta/20 transition-all duration-300">
                 <div className="text-ids-magenta text-[10px] font-mono uppercase tracking-wider">UAE Operations Hub</div>
                 <div className="text-white text-xs font-semibold mt-2 font-display">Dubai Production City</div>
-                <span className="text-[10px] text-slate-400 font-sans block mt-1">Production Region Nodes, IGS, Dubai Production City, Dubai, United Arab Emirates</span>
+                <span className="text-[10px] text-slate-400 font-sans block mt-1">B, Publishing Pavilion - Office 126 - Me'aisem First - Dubai Production City - Dubai</span>
               </div>
 
               <div className="text-[9px] font-mono text-slate-500 text-center py-2 border border-white/5 rounded-xl bg-white/[0.01]">
