@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   Shield,
@@ -5,9 +6,32 @@ import {
   Landmark,
   Scale,
   Briefcase,
+  MapPin,
 } from "lucide-react";
 
 export default function AboutSection() {
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const [cardsVisible, setCardsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = cardsRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setCardsVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setCardsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const usaPoints = [
     {
       label: "California Headquartered",
@@ -125,53 +149,81 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Interactive Dual Continent Cards layout: US is clean white card, UAE is premium dark slate card */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* USA Card (Light Theme) */}
-            <div className="bg-slate-50 border border-slate-200 p-6 rounded-2xl flex flex-col justify-between shadow-md relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-              <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-multiply transition-opacity duration-300 group-hover:opacity-[0.05]">
-                <img
-                  src="/assets/images/california_office_hq_1780690098348.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-              <div className="absolute top-0 right-0 w-24 h-24 bg-ids-purple/5 rounded-full blur-2xl group-hover:bg-ids-purple/10 transition-all duration-300" />
+          {/* Interactive Dual Continent Cards layout: matching premium dark slate cards */}
+          <div
+            ref={cardsRef}
+            className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6"
+          >
+            {/* USA Card */}
+            <div
+              className={`bg-slate-950 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between shadow-2xl relative overflow-hidden group hover:border-ids-purple/40 transition-colors duration-300 ${
+                cardsVisible ? "card-rise" : "opacity-0"
+              }`}
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-ids-purple/20 rounded-full blur-2xl group-hover:bg-ids-purple/30 transition-all duration-300" />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-2.5 mb-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-ids-purple animate-pulse" />
                   <h3 className="font-display font-extrabold text-ids-purple uppercase text-xs tracking-wider">
-                    USA Operations
+                    USA Operation
                   </h3>
                 </div>
 
-                {/* Regional HQ Node Photo */}
-                <div className="mb-5 h-28 w-full rounded-xl overflow-hidden border border-slate-200 shadow-inner relative z-10">
-                  <img
-                    src="/assets/images/california_office_hq_1780690098348.png"
-                    alt="IDS California HQ Node"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-500 scale-100 group-hover:scale-105"
-                  />
-                  <div className="absolute top-2 left-2 bg-slate-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-[#22c55e]">
-                    SECURE NODE: HB-CA-HQ
+                {/* Regional HQ Map Node */}
+                <a
+                  href="https://maps.apple/p/Uk-osCQuN9rZqx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mb-5 h-36 w-full rounded-xl overflow-hidden border border-white/10 relative z-10 block bg-[#0b0f1d] group/map hover:border-ids-purple/50 transition-colors duration-300"
+                >
+                  {/* map grid */}
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(123,47,190,0.25),transparent_65%)]" />
+                  {/* pulsing pin */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+                    <div className="relative flex items-center justify-center">
+                      <span className="absolute w-10 h-10 rounded-full bg-ids-purple/30 animate-ping" />
+                      <span className="absolute w-16 h-16 rounded-full border border-ids-purple/20" />
+                      <div className="relative w-9 h-9 rounded-full bg-ids-purple text-white flex items-center justify-center shadow-lg shadow-ids-purple/40 group-hover/map:scale-110 transition-transform duration-300">
+                        <MapPin className="w-4 h-4" />
+                      </div>
+                    </div>
+                    <span className="font-mono text-[8px] text-slate-400 tracking-widest mt-2 uppercase">
+                      Huntington Beach · California
+                    </span>
                   </div>
+                  <div className="absolute top-2 left-2 bg-slate-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-[#22c55e] pointer-events-none">
+                    US HEADQUARTERS
+                  </div>
+                  <span className="absolute bottom-2 right-2 flex items-center gap-1 bg-slate-950/85 group-hover/map:bg-ids-purple px-2.5 py-1 rounded-md text-[9px] font-mono font-bold text-white tracking-wider transition-colors duration-300">
+                    OPEN MAP ↗
+                  </span>
+                </a>
+                <div className="mb-5 flex items-start gap-2 text-[10px] text-slate-400 font-sans leading-snug relative z-10">
+                  <MapPin className="w-3.5 h-3.5 text-ids-purple shrink-0 mt-px" />
+                  <span>2007 Delaware ST, Huntington Beach, CA 92648, United States</span>
                 </div>
 
                 <div className="space-y-4">
                   {usaPoints.map((pt, i) => {
                     const PtIcon = pt.icon;
                     return (
-                      <div key={i} className="flex gap-3">
-                        <div className="w-7 h-7 rounded-lg bg-ids-purple/10 text-ids-purple flex items-center justify-center shrink-0 mt-0.5">
+                      <div
+                        key={i}
+                        className={`flex gap-3 group/pt rounded-lg -mx-2 px-2 py-1 cursor-default hover:bg-white/[0.04] hover:translate-x-1 transition-all duration-300 ${
+                          cardsVisible ? "point-slide-in" : "opacity-0"
+                        }`}
+                        style={{ animationDelay: `${350 + i * 100}ms` }}
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 group-hover/pt:bg-ids-purple group-hover/pt:scale-110 group-hover/pt:shadow-lg group-hover/pt:shadow-ids-purple/40">
                           <PtIcon className="w-3.5 h-3.5" />
                         </div>
                         <div>
-                          <h4 className="font-sans font-semibold text-xs text-slate-900">
+                          <h4 className="font-sans font-semibold text-xs text-white transition-colors duration-300 group-hover/pt:text-ids-purple">
                             {pt.label}
                           </h4>
-                          <span className="text-[10px] text-slate-500 font-sans block mt-0.5 leading-snug">
+                          <span className="text-[10px] text-slate-400 font-sans block mt-0.5 leading-snug transition-colors duration-300 group-hover/pt:text-slate-300">
                             {pt.desc}
                           </span>
                         </div>
@@ -181,56 +233,85 @@ export default function AboutSection() {
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-slate-200 mt-8 text-[9px] font-mono text-slate-400 relative z-10">
+              <div className="pt-6 border-t border-white/5 mt-8 text-[9px] font-mono text-ids-purple/80 relative z-10">
                 HO: HUNTINGTON BEACH, CALIFORNIA
               </div>
             </div>
 
-            {/* UAE Card (Dark Theme for Depth Contrast) */}
-            <div className="bg-slate-950 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between shadow-2xl relative overflow-hidden group hover:border-ids-violet/40 transition-all duration-300">
-              <div className="absolute inset-0 opacity-[0.04] pointer-events-none transition-opacity duration-300 group-hover:opacity-[0.06]">
-                <img
-                  src="/assets/images/dubai_marina_sunset_1780689994078.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
+            {/* UAE Card */}
+            <div
+              className={`bg-slate-950 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between shadow-2xl relative overflow-hidden group hover:border-ids-violet/40 transition-colors duration-300 ${
+                cardsVisible ? "card-rise" : "opacity-0"
+              }`}
+              style={{ animationDelay: "150ms" }}
+            >
               <div className="absolute top-0 right-0 w-24 h-24 bg-ids-violet/20 rounded-full blur-2xl group-hover:bg-ids-violet/30 transition-all duration-300" />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-2.5 mb-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-ids-magenta animate-pulse" />
                   <h3 className="font-display font-extrabold text-ids-magenta uppercase text-xs tracking-wider">
-                    UAE Operations: Dubai Production City Node
+                    UAE Operation
                   </h3>
                 </div>
 
-                {/* Regional Dubai Node Photo */}
-                <div className="mb-5 h-28 w-full rounded-xl overflow-hidden border border-white/5 shadow-inner relative z-10">
-                  <img
-                    src="/assets/images/dubai_marina_sunset_17806899940781.jpeg"
-                    alt="IDS Dubai Marina Regional Node"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-500 scale-100 group-hover:scale-105"
-                  />
-                  <div className="absolute top-2 left-2 bg-slate-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-ids-magenta">
-                    REGIONAL NODE: DXB-UAE
+                {/* Regional Dubai Map Node */}
+                <a
+                  href="https://maps.app.goo.gl/ixy9THq4YAGagtdS9?g_st=iw"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mb-5 h-36 w-full rounded-xl overflow-hidden border border-white/10 relative z-10 block bg-[#0b0f1d] group/map hover:border-ids-magenta/50 transition-colors duration-300"
+                >
+                  {/* map grid */}
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.22),transparent_65%)]" />
+                  {/* pulsing pin */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+                    <div className="relative flex items-center justify-center">
+                      <span className="absolute w-10 h-10 rounded-full bg-ids-magenta/30 animate-ping" />
+                      <span className="absolute w-16 h-16 rounded-full border border-ids-magenta/20" />
+                      <div className="relative w-9 h-9 rounded-full bg-ids-magenta text-white flex items-center justify-center shadow-lg shadow-ids-magenta/40 group-hover/map:scale-110 transition-transform duration-300">
+                        <MapPin className="w-4 h-4" />
+                      </div>
+                    </div>
+                    <span className="font-mono text-[8px] text-slate-400 tracking-widest mt-2 uppercase">
+                      Dubai Production City · Dubai
+                    </span>
                   </div>
+                  <div className="absolute top-2 left-2 bg-slate-950/80 px-2 py-0.5 rounded text-[8px] font-mono text-ids-magenta pointer-events-none">
+                    MENA REGIONAL OFFICE
+                  </div>
+                  <span className="absolute bottom-2 right-2 flex items-center gap-1 bg-slate-950/85 group-hover/map:bg-ids-magenta px-2.5 py-1 rounded-md text-[9px] font-mono font-bold text-white tracking-wider transition-colors duration-300">
+                    OPEN MAP ↗
+                  </span>
+                </a>
+                <div className="mb-5 flex items-start gap-2 text-[10px] text-slate-400 font-sans leading-snug relative z-10">
+                  <MapPin className="w-3.5 h-3.5 text-ids-magenta shrink-0 mt-px" />
+                  <span>
+                    B, Publishing Pavilion - Office 126 - Me'aisem First -
+                    Dubai Production City - Dubai
+                  </span>
                 </div>
 
                 <div className="space-y-4">
                   {uaePoints.map((pt, i) => {
                     const PtIcon = pt.icon;
                     return (
-                      <div key={i} className="flex gap-3">
-                        <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5">
+                      <div
+                        key={i}
+                        className={`flex gap-3 group/pt rounded-lg -mx-2 px-2 py-1 cursor-default hover:bg-white/[0.04] hover:translate-x-1 transition-all duration-300 ${
+                          cardsVisible ? "point-slide-in" : "opacity-0"
+                        }`}
+                        style={{ animationDelay: `${500 + i * 100}ms` }}
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 group-hover/pt:bg-ids-magenta group-hover/pt:scale-110 group-hover/pt:shadow-lg group-hover/pt:shadow-ids-magenta/40">
                           <PtIcon className="w-3.5 h-3.5" />
                         </div>
                         <div>
-                          <h4 className="font-sans font-semibold text-xs text-white">
+                          <h4 className="font-sans font-semibold text-xs text-white transition-colors duration-300 group-hover/pt:text-ids-magenta">
                             {pt.label}
                           </h4>
-                          <span className="text-[10px] text-slate-400 font-sans block mt-0.5 leading-snug">
+                          <span className="text-[10px] text-slate-400 font-sans block mt-0.5 leading-snug transition-colors duration-300 group-hover/pt:text-slate-300">
                             {pt.desc}
                           </span>
                         </div>

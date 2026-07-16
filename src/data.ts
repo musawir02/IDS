@@ -394,6 +394,20 @@ export const PILLARS: Pillar[] = [
           "VIP network access via Impulse Growth Solutions"
         ],
         whyItMatters: "The Gulf pays the most and competes the least for international creators, and almost no US creator is positioned to access it. We are."
+      },
+      {
+        id: 21,
+        name: "Community Building & Audience Engagement",
+        description: "Turn followers into a loyal, active community that supports long-term growth, trust, and revenue.",
+        whatItIs: "A community strategy that helps creators build deeper relationships with their audience through engagement systems, content interaction, and retention-focused campaigns.",
+        included: [
+          "Audience engagement strategy",
+          "Community platform setup",
+          "Content interaction planning",
+          "Fan retention campaigns",
+          "Community growth reporting"
+        ],
+        whyItMatters: "Reach gets attention, but community creates loyalty. An engaged audience is more likely to trust, share, buy, and stay with your brand."
       }
     ]
   },
@@ -405,7 +419,7 @@ export const PILLARS: Pillar[] = [
     description: "The only California partner with a team on the ground in Dubai.",
     services: [
       {
-        id: 21,
+        id: 22,
         name: "UAE Market Entry Strategy",
         description: "A complete, turnkey roadmap for US businesses entering the UAE and Gulf markets.",
         whatItIs: "A complete, turnkey roadmap for US businesses entering the UAE and Gulf markets.",
@@ -419,7 +433,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "The UAE offers extraordinary opportunity but punishes guesswork; a real strategy built by a team on the ground is the difference between expansion and an expensive misstep."
       },
       {
-        id: 22,
+        id: 23,
         name: "GCC Marketing Execution",
         description: "Full marketing delivery across the Gulf, executed locally by our Dubai team.",
         whatItIs: "Full marketing delivery across the Gulf, executed locally by our Dubai team.",
@@ -433,7 +447,7 @@ export const PILLARS: Pillar[] = [
         whyItMatters: "Marketing that's culturally fluent and locally executed performs far better than campaigns simply translated and exported from the US."
       },
       {
-        id: 23,
+        id: 24,
         name: "UAE Branding & Creative Production",
         description: "Region specific branding and creative built to resonate with Gulf audiences.",
         whatItIs: "Region specific branding and creative built to resonate with Gulf audiences.",
@@ -525,11 +539,6 @@ export const WHY_IDS: WhyIDSPoint[] = [
   },
   {
     id: 9,
-    title: "Long Term Partnership",
-    description: "We measure our success by your growth. Our entire business model is built on long term retainers, not one off projects. When you grow, we grow. That alignment of incentives changes everything."
-  },
-  {
-    id: 10,
     title: "Creator Growth, Globally",
     description: "We turn audiences into secure, monetizable operations, giving you direct access to premium Gulf brand partnerships through our on-ground Dubai team. Your influence, professionalized."
   }

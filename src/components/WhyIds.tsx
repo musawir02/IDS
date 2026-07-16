@@ -20,7 +20,7 @@ export default function WhyIds() {
           </h2>
         </div>
 
-        {/* 10 Points grid of why choose IDS */}
+        {/* 9 Points grid of why choose IDS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {WHY_IDS.map((point) => (
             <div

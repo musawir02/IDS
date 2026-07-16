@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { PILLARS } from "../data";
 import { Service } from "../types";
 import { AnimatePresence, motion } from "motion/react";
@@ -189,7 +190,7 @@ export default function ServicesSection() {
                       <div
                         key={srv.id}
                         onClick={() => handleOpenDetail(srv)}
-                        className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] p-6 bg-gradient-to-b from-ids-violet/20 border border-white/5 hover:border-ids-purple/40 rounded-2xl flex flex-col justify-between hover:bg-[#12121A]/90 transition-all duration-300 min-h-[200px] group relative cursor-pointer"
+                        className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] p-6 bg-gradient-to-b from-ids-violet/20 border border-white/5 hover:border-ids-purple/40 rounded-2xl flex flex-col justify-between hover:bg-[#12121A]/90 hover:-translate-y-1.5 hover:scale-[1.04] hover:z-10 hover:shadow-[0_20px_45px_rgba(123,47,190,0.22)] transition-all duration-300 min-h-[200px] group relative cursor-pointer"
                       >
                         {/* Hover color accent strip */}
                         <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl bg-gradient-to-r from-ids-purple to-ids-violet transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
@@ -199,7 +200,7 @@ export default function ServicesSection() {
                             <span className="font-mono text-[9px] text-slate-500 font-bold uppercase tracking-wider">
                               SERVICE ID {srv.id < 10 ? `0${srv.id}` : srv.id}
                             </span>
-                            <div className="p-1.5 rounded-lg bg-white/5 text-slate-400 group-hover:text-ids-magenta transition-colors duration-300">
+                            <div className="p-1.5 rounded-lg bg-white/5 text-slate-400 group-hover:text-white group-hover:bg-ids-magenta group-hover:shadow-[0_0_20px_rgba(192,38,211,0.6)] group-hover:scale-[1.4] group-hover:rotate-12 transition-all duration-300 ease-out">
                               <ServiceIcon className="w-4 h-4" />
                             </div>
                           </div>
@@ -232,9 +233,10 @@ export default function ServicesSection() {
       </div>
 
       {/* Modern Interactive Slide-Over Drawer / Modal for the Service Appendix (Change 2) */}
-      <AnimatePresence>
+      {createPortal(
+        <AnimatePresence>
         {selectedService && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             {/* Modal Backdrop Blur Overlay key */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -321,7 +323,9 @@ export default function ServicesSection() {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }
