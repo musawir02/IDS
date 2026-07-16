@@ -113,50 +113,49 @@ export default function TrustBar() {
     {
       category: "Global FMCG & Consumer",
       icon: Anchor,
-      clients: ["Kellogg's", "Red Bull", "Awal Dairy"],
+      clients: [
+        { name: "Red Bull", logo: "/assets/client_logos/Global FMCG & Consumer_01.png" },
+        { name: "Awal Dairy", logo: "/assets/client_logos/Global FMCG & Consumer_02.png" },
+        { name: "Kellogg's", logo: "/assets/client_logos/Global FMCG & Consumer_03.png" },
+      ],
     },
     {
       category: "Luxury & Premium Retail",
       icon: ShoppingBag,
-      clients: ["Bloomingdale's", "Van Cleef & Arpels", "The Beauty Secrets"],
+      clients: [
+        { name: "Van Cleef & Arpels", logo: "/assets/client_logos/Luxury & Premium Retail_01.png" },
+      ],
     },
     {
-      category: "Hospitality, F&B & Entertainment",
+      category: "Hospitality & F&B",
       icon: Utensils,
       clients: [
-        "St. Regis Saadiyat Island",
-        "Shakespeare and Co.",
-        "Hello Park",
-        "Starbucks",
-        "Hooters",
+        { name: "Hello Park", logo: "/assets/client_logos/Hospitality & F&B_01.png" },
+        { name: "Hooters", logo: "/assets/client_logos/Hospitality & F&B_02.webp" },
       ],
     },
     {
       category: "Entertainment, Media & Sports",
       icon: Film,
       clients: [
-        "MTV Lebanon",
-        "Champs",
-        "Al Riyadi Club",
-        "Dubai Marathon (w/ Nike)",
+        { name: "Al Riyadi Basketball Academy Dubai", logo: "/assets/client_logos/Entertainment, Media & Sports_01.png" },
+        { name: "Champs Sports", logo: "/assets/client_logos/Entertainment, Media & Sports_02.png" },
+        { name: "MTV Lebanon", logo: "/assets/client_logos/Entertainment, Media & Sports_03.png" },
       ],
     },
     {
       category: "Real Estate & Interiors",
       icon: Landmark,
       clients: [
-        "Regal Investment Group",
-        "GFS Development",
-        "Fidelity Wallcovering (USA)",
+        { name: "Regal Real Estate", logo: "/assets/client_logos/Real Estate & Interiors_01.jpeg" },
+        { name: "Fidelity Industries", logo: "/assets/client_logos/Real Estate & Interiors_02.png" },
       ],
     },
     {
-      category: "Public Sector & Institutional",
+      category: "Beauty",
       icon: Sparkles,
       clients: [
-        "Mohammed Bin Rashid Space Centre",
-        "Dubai Police",
-        "Dubai Customs",
+        { name: "The Beauty Secrets", logo: "/assets/client_logos/Beauty_01.png" },
       ],
     },
   ];
@@ -221,16 +220,30 @@ export default function TrustBar() {
 
           {/* Monochrome client display wall block */}
           <div className="p-6 sm:p-8 bg-white border border-slate-200/80 rounded-2xl shadow-sm min-h-[140px] flex flex-col justify-between relative overflow-hidden">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-center">
+            <div
+              key={activeCategory}
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-center"
+            >
               {clientGroups[activeCategory].clients.map((client, cIdx) => (
                 <div
                   key={cIdx}
-                  className="flex items-center justify-center p-4 rounded-xl bg-slate-50/50 border border-slate-100 hover:border-slate-200 hover:bg-white transition-all duration-300 group min-h-[64px]"
+                  className="portfolio-logo-enter flex items-center justify-center p-4 rounded-xl bg-slate-50/50 border border-slate-100 hover:border-slate-200 hover:bg-white transition-all duration-300 group min-h-[64px] overflow-hidden"
+                  style={{ animationDelay: `${cIdx * 80}ms` }}
                 >
                   <img
                     src={client.logo}
                     alt={client.name}
-                    className="h-10 w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                    className={`h-10 w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 ${
+                      client.logo.includes("Real Estate & Interiors_01")
+                        ? "scale-[5]"
+                        : client.logo.includes("Real Estate & Interiors_02")
+                          ? "scale-[7]"
+                          : client.logo.includes("Entertainment, Media & Sports_01")
+                            ? "scale-[2]"
+                            : client.logo.includes("Entertainment, Media & Sports_02")
+                              ? "scale-[3]"
+                          : ""
+                    }`}
                   />
                 </div>
               ))}
