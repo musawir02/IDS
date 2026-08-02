@@ -130,21 +130,43 @@ export default function UaeSpotlight() {
               </h2>
             </motion.div>
 
-            {/* Introductory Context */}
-            <motion.p
+            {/* Introductory Context Paragraph with Interactive Hover Highlight Animation */}
+            <motion.div
               variants={itemVariants}
-              className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed sm:leading-loose"
+              whileHover={{ y: -3, scale: 1.01 }}
+              transition={{ type: "spring", stiffness: 400, damping: 22 }}
+              className="group relative p-4 sm:p-5 rounded-2xl bg-white/[0.01] hover:bg-indigo-950/35 border border-white/5 hover:border-indigo-400/30 backdrop-blur-md shadow-sm hover:shadow-[0_15px_40px_rgba(99,102,241,0.18)] transition-all duration-300 cursor-pointer overflow-hidden"
             >
-              The UAE is the most accessible entry point into one of the
-              world&apos;s strongest consumer regions. Zero personal income tax,
-              100% foreign company ownership, 99% internet penetration, and
-              one of the highest GDP-per-capita rates in the world sit inside a
-              market that actively seeks global brands and pays premium prices
-              for them. From a UAE base, the wider GCC opens up: Saudi Arabia,
-              Qatar, Kuwait, Bahrain, and Oman together represent over 57
-              million consumers with some of the highest digital engagement
-              rates on the planet.
-            </motion.p>
+              {/* Left Accent Glow Bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-400 via-purple-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-2xl" />
+              
+              {/* Ambient Hover Light Sweep */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-500/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
+
+              <p className="relative z-10 font-sans text-xs sm:text-sm text-slate-300 group-hover:text-slate-100 leading-relaxed sm:leading-loose transition-colors duration-300">
+                The UAE is the most accessible entry point into one of the
+                world&apos;s strongest consumer regions.{" "}
+                <span className="font-semibold text-indigo-300 group-hover:text-indigo-200 group-hover:bg-indigo-500/25 group-hover:px-1.5 group-hover:py-0.5 rounded transition-all duration-300 inline-block">
+                  Zero personal income tax
+                </span>
+                ,{" "}
+                <span className="font-semibold text-indigo-300 group-hover:text-indigo-200 group-hover:bg-indigo-500/25 group-hover:px-1.5 group-hover:py-0.5 rounded transition-all duration-300 inline-block">
+                  100% foreign company ownership
+                </span>
+                ,{" "}
+                <span className="font-semibold text-cyan-300 group-hover:text-cyan-200 group-hover:bg-cyan-500/25 group-hover:px-1.5 group-hover:py-0.5 rounded transition-all duration-300 inline-block">
+                  99% internet penetration
+                </span>
+                , and one of the highest GDP-per-capita rates in the world sit inside a
+                market that actively seeks global brands and pays premium prices
+                for them. From a UAE base, the wider GCC opens up: Saudi Arabia,
+                Qatar, Kuwait, Bahrain, and Oman together represent over{" "}
+                <span className="font-semibold text-purple-300 group-hover:text-purple-200 group-hover:bg-purple-500/25 group-hover:px-1.5 group-hover:py-0.5 rounded transition-all duration-300 inline-block">
+                  57 million consumers
+                </span>{" "}
+                with some of the highest digital engagement rates on the planet.
+              </p>
+            </motion.div>
 
             {/* Glassmorphic Turnkey Establishment Card - Ultra Responsive */}
             <motion.div
@@ -324,21 +346,57 @@ export default function UaeSpotlight() {
                 ))}
               </motion.div>
 
-              {/* International Expansion Advantage Callout */}
+              {/* International Expansion Advantage Callout - Animated & Interactive */}
               <motion.div
                 variants={itemVariants}
-                className="mt-6 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-start gap-3.5 backdrop-blur-md"
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="group relative mt-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-950/70 via-purple-950/40 to-slate-950/80 border border-indigo-400/30 hover:border-indigo-400/60 backdrop-blur-xl shadow-[0_10px_30px_rgba(79,70,229,0.18)] hover:shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition-all duration-300 cursor-pointer overflow-hidden"
               >
-                <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-300 shrink-0 mt-0.5">
-                  <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-300" />
+                {/* Top Border Glow Shimmer Line */}
+                <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Ambient Shimmer Sweep */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-400/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
+
+                <div className="relative z-10 flex items-start gap-3.5 sm:gap-4">
+                  {/* Animated Icon Box */}
+                  <motion.div
+                    whileHover={{ rotate: 12, scale: 1.12 }}
+                    transition={{ type: "spring", stiffness: 450 }}
+                    className="p-2.5 rounded-xl bg-gradient-to-br from-indigo-500/30 to-purple-500/20 border border-indigo-400/30 text-indigo-300 shrink-0 mt-0.5 shadow-[0_0_15px_rgba(99,102,241,0.25)] group-hover:border-cyan-400/50 transition-colors"
+                  >
+                    <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-300 animate-pulse" />
+                  </motion.div>
+
+                  <div className="flex-1 min-w-0">
+                    <strong className="font-display text-xs sm:text-sm text-white font-bold block mb-1 flex items-center gap-1.5">
+                      <span>International Expansion Advantage</span>
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-300 opacity-80 group-hover:opacity-100 transition-opacity" />
+                    </strong>
+                    <p className="font-sans text-[11px] sm:text-xs text-indigo-200/90 leading-relaxed group-hover:text-indigo-100 transition-colors">
+                      A UAE entity gives you a{" "}
+                      <span className="font-semibold text-indigo-200 group-hover:text-cyan-200 group-hover:bg-indigo-500/20 group-hover:px-1 rounded transition-all">
+                        licensed base
+                      </span>
+                      , a{" "}
+                      <span className="font-semibold text-indigo-200 group-hover:text-cyan-200 group-hover:bg-indigo-500/20 group-hover:px-1 rounded transition-all">
+                        corporate bank account
+                      </span>
+                      , and{" "}
+                      <span className="font-semibold text-indigo-200 group-hover:text-cyan-200 group-hover:bg-indigo-500/20 group-hover:px-1 rounded transition-all">
+                        residence
+                      </span>{" "}
+                      — plus a{" "}
+                      <span className="font-semibold text-cyan-300 group-hover:text-white group-hover:bg-cyan-500/20 group-hover:px-1 rounded transition-all">
+                        launchpad into the wider GCC
+                      </span>
+                      . We handle the entity and the launch. You keep the focus on
+                      the business.
+                    </p>
+                  </div>
                 </div>
-                <p className="font-sans text-[11px] sm:text-xs text-indigo-200/90 leading-relaxed">
-                  <strong className="text-white font-semibold block mb-0.5">International Expansion Advantage:</strong>
-                  A UAE entity gives you a licensed base, a corporate bank
-                  account, and residence — plus a launchpad into the wider GCC.
-                  We handle the entity and the launch. You keep the focus on
-                  the business.
-                </p>
               </motion.div>
 
             </div>
