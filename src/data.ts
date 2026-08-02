@@ -544,13 +544,13 @@ export const WHY_IDS: WhyIDSPoint[] = [
 ];
 
 export const UAE_FACTS = [
-  { value: "0%", label: "Personal income tax · UAE", source: "UAE Government" },
-  { value: "100%", label: "Foreign company ownership · UAE", source: "UAE Ministry of Economy" },
+  { value: "0%", label: "Personal income tax · UAE", source: "UAE Government · 2026" },
+  { value: "100%", label: "Foreign company ownership · UAE", source: "UAE Ministry of Economy · 2026" },
   { value: "$500B+", label: "UAE GDP · 2026 est.", source: "IMF WEO · Apr 2026" },
   { value: "11.2M", label: "UAE population · 2025 est.", source: "DataReportal · 2025" },
   { value: "99%", label: "Internet penetration · UAE", source: "DataReportal · 2025" },
   { value: "$27B+", label: "Ecommerce market size · UAE", source: "EZDubai market estimate · 2025" },
-  { value: "57M+", label: "GCC consumers · 6 markets", source: "Regional population estimate" },
+  { value: "57M+", label: "GCC consumers · 6 markets", source: "Regional population estimate · 2025" },
   { value: "#1", label: "MENA business hub · Dubai", source: "GFCI · 2025" }
 ];
 

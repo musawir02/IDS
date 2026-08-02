@@ -8,6 +8,7 @@ import {
   Globe2,
   Sparkles,
   CheckCircle2,
+  ShieldCheck,
 } from "lucide-react";
 
 export default function UaeSpotlight() {
@@ -55,6 +56,37 @@ export default function UaeSpotlight() {
         damping: 22,
         mass: 0.6,
       },
+    },
+  };
+
+  const headlineLineVariants = {
+    hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
+
+  const headlineAccentVariants = {
+    hidden: { opacity: 0, y: 28, scale: 0.96, filter: "blur(6px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 },
+    },
+  };
+
+  const panelImageVariants = {
+    hidden: { opacity: 0, scale: 0.94, filter: "blur(8px)" },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
@@ -117,18 +149,27 @@ export default function UaeSpotlight() {
             </motion.div>
 
             {/* Main Headline - Sleek, Cohesive & Elegant */}
-            <motion.div variants={itemVariants} className="relative">
+            <div className="relative">
               {/* Dynamic Title Glow Aura */}
-              <div className="absolute -left-6 -top-6 w-80 h-40 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
+              <motion.div
+                animate={{ opacity: [0.4, 0.75, 0.4], scale: [1, 1.08, 1] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -left-6 -top-6 w-80 h-40 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"
+              />
 
               <h2 className="relative font-display font-black text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15]">
-                From California to a live UAE company —{" "}
+                <motion.span variants={headlineLineVariants} className="inline-block">
+                  From California to a live UAE company —
+                </motion.span>{" "}
                 <br className="hidden sm:inline" />
-                <span className="inline-block mt-1 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 via-purple-200 to-cyan-300 drop-shadow-[0_4px_25px_rgba(129,140,248,0.3)]">
-                  and a Gulf market ready for you.
-                </span>
+                <motion.span
+                  variants={headlineAccentVariants}
+                  className="inline-block mt-1 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 via-purple-200 to-cyan-300 drop-shadow-[0_4px_25px_rgba(129,140,248,0.3)]"
+                >
+                  and a Gulf market that&apos;s ready for you.
+                </motion.span>
               </h2>
-            </motion.div>
+            </div>
 
             {/* Introductory Context Paragraph with Interactive Hover Highlight Animation */}
             <motion.div
@@ -218,13 +259,18 @@ export default function UaeSpotlight() {
                   ))}
                 </motion.ul>
 
-                {/* Partner Guarantee Footer - Responsive Stack */}
-                <div className="mt-5 sm:mt-6 border-t border-indigo-400/15 pt-3.5 sm:pt-4 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs leading-relaxed text-indigo-200/80 gap-1.5">
-                  <p>Delivered through our licensed Dubai establishment partners.</p>
-                  <p className="font-semibold text-indigo-300 flex items-center gap-1.5 shrink-0">
-                    <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
-                    One point of contact, not five.
-                  </p>
+                {/* Partner Guarantee Footer - Stacked Icon Rows */}
+                <div className="mt-5 sm:mt-6 border-t border-indigo-400/15 pt-3.5 sm:pt-4 space-y-2.5">
+                  <div className="flex items-start gap-2.5 text-[11px] sm:text-xs leading-relaxed text-indigo-200/80">
+                    <ShieldCheck className="w-4 h-4 shrink-0 text-indigo-400 mt-0.5" />
+                    <p>Delivered through our licensed Dubai establishment partners.</p>
+                  </div>
+                  <div className="flex items-start gap-2.5 text-[11px] sm:text-xs leading-relaxed">
+                    <Sparkles className="w-4 h-4 shrink-0 text-cyan-300 mt-0.5" />
+                    <p className="font-semibold text-indigo-300">
+                      Coordinated by your IDS team — one point of contact, not five.
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -277,7 +323,10 @@ export default function UaeSpotlight() {
               <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
               {/* Header Bar */}
-              <div className="flex items-center justify-between mb-6 sm:mb-8 pb-4 border-b border-indigo-500/15">
+              <motion.div
+                variants={itemVariants}
+                className="flex items-center justify-between mb-6 sm:mb-8 pb-4 border-b border-indigo-500/15"
+              >
                 <div className="flex items-center gap-2.5">
                   <div className="p-1.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30">
                     <Landmark className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-400 animate-pulse" />
@@ -288,12 +337,13 @@ export default function UaeSpotlight() {
                 </div>
                 <span className="text-[9px] sm:text-[10px] text-indigo-300 font-mono font-bold tracking-widest bg-indigo-500/15 py-1 px-3 rounded-full border border-indigo-500/30 uppercase flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                  Dubai Hub
+                  Dubai (DXB) Hub
                 </span>
-              </div>
+              </motion.div>
 
               {/* Dubai Team Showcase Image with Hover Depth & Badge */}
               <motion.div
+                variants={panelImageVariants}
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.4 }}
                 className="group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-6 aspect-[16/10] sm:aspect-video"
@@ -306,11 +356,6 @@ export default function UaeSpotlight() {
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300" />
-                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 right-3 sm:right-4 flex items-center justify-between">
-                  <div className="bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[10px] sm:text-xs font-mono font-medium text-slate-200">
-                    📍 Dubai Production City Operations Center
-                  </div>
-                </div>
               </motion.div>
 
               {/* Facts Grid Layout with Staggered Motion */}
