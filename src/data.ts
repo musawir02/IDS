@@ -12,7 +12,6 @@ export const BRAND_DELIVERABLES = [
 
 export const BRANDS = [
   "DHL",
-  "Starbucks",
   "Nasty Vape",
   "Bloomingdale's",
   "Van Cleef & Arpels",
@@ -545,14 +544,22 @@ export const WHY_IDS: WhyIDSPoint[] = [
 ];
 
 export const UAE_FACTS = [
-  { value: "$500B+", label: "UAE GDP 2026" },
-  { value: "9.9M", label: "Population (89% Urban)" },
-  { value: "99%", label: "Internet Penetration" },
-  { value: "$27B+", label: "Ecommerce Market Size" },
-  { value: "Strong Access", label: "Foreign ownership access" },
-  { value: "Favorable", label: "Regional tax policies" },
-  { value: "Gateway", label: "To 2.5B MENA Consumers" },
-  { value: "No. 1", label: "Dubai World Business Hub" }
+  { value: "0%", label: "Personal income tax · UAE", source: "UAE Government" },
+  { value: "100%", label: "Foreign company ownership · UAE", source: "UAE Ministry of Economy" },
+  { value: "$500B+", label: "UAE GDP · 2026 est.", source: "IMF WEO · Apr 2026" },
+  { value: "11.2M", label: "UAE population · 2025 est.", source: "DataReportal · 2025" },
+  { value: "99%", label: "Internet penetration · UAE", source: "DataReportal · 2025" },
+  { value: "$27B+", label: "Ecommerce market size · UAE", source: "EZDubai market estimate · 2025" },
+  { value: "57M+", label: "GCC consumers · 6 markets", source: "Regional population estimate" },
+  { value: "#1", label: "MENA business hub · Dubai", source: "GFCI · 2025" }
+];
+
+export const UAE_ESTABLISHMENT_SERVICES = [
+  "Company formation & trade licence",
+  "Corporate tax & VAT registration",
+  "Residence visas & Emirates ID",
+  "Corporate bank account setup",
+  "Ongoing compliance & renewals"
 ];
 
 export const CALL_EXPECTATIONS = [

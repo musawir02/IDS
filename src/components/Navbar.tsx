@@ -23,7 +23,7 @@ export default function Navbar({ activePage }: NavbarProps = {}) {
     { name: "The Challenge", href: "#challenge" },
     { name: "Services", href: "#services" },
     { name: "Creators & Influencers", href: "#creators" },
-    { name: "Gulf Spotlight", href: "#uae-spotlight" },
+    { name: "UAE & Gulf", href: "#uae-spotlight" },
   ];
 
   return (
