@@ -264,7 +264,7 @@ export default function Hero() {
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[11px] text-slate-400 select-none">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-ids-magenta animate-pulse" />
-            <span>A decade behind brands like DHL &middot; The Beauty Secrets &middot; Starbucks &middot; Bloomingdale&rsquo;s</span>
+            <span>A decade behind brands like DHL &middot; The Beauty Secrets &middot; Red Bull &middot; Bloomingdale&rsquo;s</span>
           </div>
           <div className="text-slate-500 font-semibold uppercase tracking-wider text-[10px]">
             California &amp; Dubai

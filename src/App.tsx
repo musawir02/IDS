@@ -4,7 +4,8 @@
  */
 
 import { useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "motion/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TrustBar from "./components/TrustBar";
@@ -40,20 +41,70 @@ function PageHeader({
   subtitle: string;
   category: string;
 }) {
+  const colonIndex = title.indexOf(":");
+  const hasColon = colonIndex !== -1;
+  const titleLead = hasColon ? title.slice(0, colonIndex + 1) : title;
+  const titleAccent = hasColon ? title.slice(colonIndex + 1).trim() : null;
+
   return (
-    <div className="relative pt-36 pb-12 overflow-hidden bg-ids-black border-b border-white/5">
-      {/* Decorative ambient background */}
-      <div className="absolute inset-x-0 top-0 h-[300px] bg-gradient-to-b from-ids-purple/10 to-transparent pointer-events-none" />
+    <div className="relative pt-36 pb-14 overflow-hidden bg-ids-black border-b border-white/5">
+      {/* Dynamic Animated Ambient Glow */}
+      <motion.div
+        animate={{
+          scale: [1, 1.25, 1],
+          opacity: [0.15, 0.3, 0.15],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 left-1/4 w-[40rem] h-[20rem] bg-gradient-to-r from-ids-purple/20 via-indigo-600/20 to-ids-magenta/20 rounded-full blur-[100px] pointer-events-none"
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <span className="inline-flex px-3 py-1 bg-ids-magenta/15 border border-ids-magenta/30 text-ids-magenta text-[10px] font-bold uppercase tracking-wider rounded-full font-mono mb-4">
-          {category}
-        </span>
-        <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight">
-          {title}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-ids-magenta/20 via-indigo-500/20 to-purple-500/20 border border-ids-magenta/40 text-ids-magenta text-[11px] font-bold uppercase tracking-widest rounded-full font-mono mb-5 shadow-[0_0_20px_rgba(192,38,211,0.25)]"
+        >
+          <span className="w-2 h-2 rounded-full bg-ids-magenta animate-ping" />
+          <span>{category}</span>
+        </motion.div>
+
+        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-white tracking-tight leading-[1.08] max-w-4xl">
+          <motion.span
+            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="inline-block bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(255,255,255,0.15)]"
+          >
+            {titleLead}
+          </motion.span>
+          {titleAccent && (
+            <>
+              {" "}
+              <motion.span
+                initial={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.28 }}
+                className="inline-block bg-gradient-to-r from-indigo-200 via-purple-200 to-cyan-300 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(129,140,248,0.25)]"
+              >
+                {titleAccent}
+              </motion.span>
+            </>
+          )}
         </h1>
-        <p className="font-sans text-slate-300 text-sm sm:text-base max-w-2xl mt-4 leading-relaxed">
+
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="font-sans text-slate-300 text-sm sm:text-lg max-w-3xl mt-4 leading-relaxed font-normal"
+        >
           {subtitle}
-        </p>
+        </motion.p>
       </div>
     </div>
   );
@@ -499,9 +550,9 @@ export default function App() {
         {activePage === "uae-spotlight" && (
           <div className="pb-16">
             <PageHeader
-              title="Gulf Regional Expansion"
-              subtitle="Turnkey market analysis, targeted campaign localization, and direct access to premium Gulf brand partnerships."
-              category="Gulf Spotlight"
+              title="Gulf Market Expansion: From California to Dubai"
+              subtitle="Turnkey entity establishment, on-ground Gulf market intelligence, and high-ROI brand launch execution across the UAE & GCC."
+              category="Gulf Operations Hub"
             />
             <div className="mt-0">
               <UaeSpotlight />
