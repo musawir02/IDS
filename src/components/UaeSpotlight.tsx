@@ -228,11 +228,10 @@ export default function UaeSpotlight() {
                       Before the marketing begins, we get you legally established.
                     </h3>
                     <p className="mt-2 font-sans text-xs leading-relaxed text-slate-300">
-                      Company formation in the right UAE jurisdiction — mainland
-                      or free zone, chosen around how you intend to trade. We
-                      coordinate trade licensing, activity classification,
-                      Federal Tax Authority registration, visas, Emirates ID,
-                      PRO services, and corporate bank account setup.
+                      Through our trusted, licensed UAE partners, we coordinate
+                      company formation, trade licensing, tax and VAT
+                      registration, residence visas, Emirates ID, banking
+                      support, and ongoing compliance.
                     </p>
                   </div>
                 </div>
@@ -263,12 +262,9 @@ export default function UaeSpotlight() {
                 <div className="mt-5 sm:mt-6 border-t border-indigo-400/15 pt-3.5 sm:pt-4 space-y-2.5">
                   <div className="flex items-start gap-2.5 text-[11px] sm:text-xs leading-relaxed text-indigo-200/80">
                     <ShieldCheck className="w-4 h-4 shrink-0 text-indigo-400 mt-0.5" />
-                    <p>Delivered through our licensed Dubai establishment partners.</p>
-                  </div>
-                  <div className="flex items-start gap-2.5 text-[11px] sm:text-xs leading-relaxed">
-                    <Sparkles className="w-4 h-4 shrink-0 text-cyan-300 mt-0.5" />
                     <p className="font-semibold text-indigo-300">
-                      Coordinated by your IDS team — one point of contact, not five.
+                      Delivered through trusted, licensed UAE partners and
+                      coordinated by IDS.
                     </p>
                   </div>
                 </div>
@@ -278,18 +274,15 @@ export default function UaeSpotlight() {
             {/* Additional Regional Insights */}
             <motion.div variants={itemVariants} className="space-y-4">
               <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed">
-                IDS, through its sister company Impulse Growth Solutions in Dubai,
-                then takes you from established entity to active brand: market
-                research and competitive intelligence, brand adaptation for the
-                Gulf consumer, full digital marketing execution across the UAE
-                and GCC, and ongoing performance management.
+                Once established, IDS and its Dubai-based sister company,
+                Impulse Growth Solutions, manage your market research, brand
+                adaptation, digital marketing, and ongoing growth across the
+                UAE and GCC.
               </p>
               <p className="font-sans text-xs sm:text-sm text-slate-400 leading-relaxed">
-                Our regional market monitoring capability (delivered through IGS
-                in Dubai) gives brands entering the Gulf a unique intelligence
-                advantage. We track consumer sentiment across all major platforms
-                in the UAE and wider GCC — insights US-only agencies simply
-                don&apos;t have.
+                Through IGS Dubai, we monitor regional consumer sentiment and
+                market activity—providing insights that US-only agencies
+                typically cannot access.
               </p>
             </motion.div>
 
@@ -421,24 +414,9 @@ export default function UaeSpotlight() {
                       <Sparkles className="w-3.5 h-3.5 text-cyan-300 opacity-80 group-hover:opacity-100 transition-opacity" />
                     </strong>
                     <p className="font-sans text-[11px] sm:text-xs text-indigo-200/90 leading-relaxed group-hover:text-indigo-100 transition-colors">
-                      A UAE entity gives you a{" "}
-                      <span className="font-semibold text-indigo-200 group-hover:text-cyan-200 group-hover:bg-indigo-500/20 group-hover:px-1 rounded transition-all">
-                        licensed base
-                      </span>
-                      , a{" "}
-                      <span className="font-semibold text-indigo-200 group-hover:text-cyan-200 group-hover:bg-indigo-500/20 group-hover:px-1 rounded transition-all">
-                        corporate bank account
-                      </span>
-                      , and{" "}
-                      <span className="font-semibold text-indigo-200 group-hover:text-cyan-200 group-hover:bg-indigo-500/20 group-hover:px-1 rounded transition-all">
-                        residence
-                      </span>{" "}
-                      — plus a{" "}
-                      <span className="font-semibold text-cyan-300 group-hover:text-white group-hover:bg-cyan-500/20 group-hover:px-1 rounded transition-all">
-                        launchpad into the wider GCC
-                      </span>
-                      . We handle the entity and the launch. You keep the focus on
-                      the business.
+                      Establish your UAE base, launch your brand, and expand
+                      across the GCC — all through one coordinated
+                      relationship.
                     </p>
                   </div>
                 </div>

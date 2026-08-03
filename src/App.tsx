@@ -551,7 +551,7 @@ export default function App() {
           <div className="pb-16">
             <PageHeader
               title="Gulf Market Expansion: From California to Dubai"
-              subtitle="Turnkey entity establishment, on-ground Gulf market intelligence, and high-ROI brand launch execution across the UAE & GCC."
+              subtitle="Coordinated UAE establishment, regional market intelligence, and brand launch across the UAE and GCC."
               category="Gulf Operations Hub"
             />
             <div className="mt-0">
