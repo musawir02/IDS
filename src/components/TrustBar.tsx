@@ -235,13 +235,13 @@ export default function TrustBar() {
                     src={client.logo}
                     alt={client.name}
                     className={`h-10 w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 ${
-                      client.logo.includes("Real Estate & Interiors_01")
+                      client.name === "Regal Real Estate"
                         ? "scale-[5]"
-                        : client.logo.includes("Real Estate & Interiors_02")
+                        : client.name === "Fidelity Industries"
                           ? "scale-[7]"
-                          : client.logo.includes("Entertainment, Media & Sports_01")
+                        : client.name === "Al Riyadi Basketball Academy Dubai"
                             ? "scale-[2]"
-                            : client.logo.includes("Entertainment, Media & Sports_02")
+                            : client.name === "Champs Sports"
                               ? "scale-[3]"
                           : ""
                     }`}
