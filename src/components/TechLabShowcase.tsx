@@ -12,6 +12,7 @@ import {
   CheckCircle,
   Globe,
 } from "lucide-react";
+import { images } from "../assets";
 
 interface TechVideo {
   id: string;
@@ -39,7 +40,7 @@ export default function TechLabShowcase() {
         { value: "< 3ms", label: "Threat Isolation" },
         { value: "99.99%", label: "System Uptime" },
       ],
-      poster: "/assets/images/cyber_security_center_1780689979069.png",
+      poster: images.cyberSecurityCenter,
     },
     {
       id: "video-2",
@@ -54,7 +55,7 @@ export default function TechLabShowcase() {
         { value: "0", label: "Critical Weaknesses" },
         { value: "+300%", label: "Conversion Lift" },
       ],
-      poster: "/assets/images/corporate_team_1780950428207.png",
+      poster: images.corporateTeam,
     },
     {
       id: "video-3",
@@ -69,7 +70,7 @@ export default function TechLabShowcase() {
         { value: "0.2s", label: "Query Matching" },
         { value: "AEO/SEO", label: "Unified Growth" },
       ],
-      poster: "/assets/images/ids_aeo_search_dominance_1780951708040.jpeg",
+      poster: images.aeoSearch,
     },
     {
       id: "video-4",
@@ -84,7 +85,7 @@ export default function TechLabShowcase() {
         { value: "Growth Engine", label: "Active" },
         { value: "Gulf Network", label: "Connected" },
       ],
-      poster: "/assets/images/creator_mood_1780950377032.png",
+      poster: images.creatorMoodPng,
     },
     {
       id: "video-5",
@@ -99,7 +100,7 @@ export default function TechLabShowcase() {
         { value: "100%", label: "Foreign Ownership" },
         { value: "Riyadh/Dxb", label: "Local Support Hub" },
       ],
-      poster: "/assets/images/dubai_marina_sunset_1780689994078.png",
+      poster: images.dubaiMarina,
     },
   ];
 

@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ShieldCheck,
 } from "lucide-react";
+import { images } from "../assets";
 
 export default function UaeSpotlight() {
   // Animation Variants
@@ -342,7 +343,7 @@ export default function UaeSpotlight() {
                 className="group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-6 aspect-[16/10] sm:aspect-video"
               >
                 <img
-                  src="/assets/images/dubai_team_office.png"
+                  src={images.dubaiTeamOffice}
                   alt="Dubai market-entry team planning a client launch"
                   className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
                   loading="lazy"

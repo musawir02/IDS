@@ -22,6 +22,7 @@ import ChatbotWidget from "./components/ChatbotWidget";
 import ScrollToTop from "./components/ScrollToTop";
 import LetsTalkWidget from "./components/LetsTalkWidget";
 import CreatorsPage from "./components/CreatorsPage";
+import { images } from "./assets";
 
 type PageType =
   | "home"
@@ -333,7 +334,7 @@ export default function App() {
               <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 pointer-events-none mix-blend-screen"
                 style={{
-                  backgroundImage: `url('/assets/images/ca_dxb_skyline_1780950361788.png')`,
+                  backgroundImage: `url('${images.skyline}')`,
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-ids-black via-ids-black/80 to-ids-black pointer-events-none" />

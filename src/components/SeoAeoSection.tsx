@@ -7,6 +7,7 @@ import {
   Globe,
   Sparkles,
 } from "lucide-react";
+import { images } from "../assets";
 
 export default function SeoAeoSection() {
   const rows = [
@@ -23,7 +24,7 @@ export default function SeoAeoSection() {
         "Multi-channel Content pillar matrices",
         "SEO / AEO indexing authority integration",
       ],
-      image: "/assets/images/ids_aeo_search_dominance_1780951708040.jpeg",
+      image: images.aeoSearch,
       alt: "IDS Dynamic AEO Search Dominance Dashboard on AI Conversational Engines",
       reverse: false,
       accent: "from-fuchsia-600/30 to-purple-600/30",
@@ -41,7 +42,7 @@ export default function SeoAeoSection() {
         "CRM integration for tracking active sponsors",
         "E-Commerce & members-only community portals",
       ],
-      image: "/assets/images/creator_growth_1780950393366.png",
+      image: images.creatorGrowth,
       alt: "Creator growth analytics on a professional dark dual desktop monitor",
       reverse: true,
       accent: "from-violet-600/30 to-ids-purple/20",
@@ -59,7 +60,7 @@ export default function SeoAeoSection() {
         "Corporate contract structuring & tax optimization",
         "VIP network entry & physical on-ground agency introductions",
       ],
-      image: "/assets/images/creator_luxury_1780950411153.png",
+      image: images.creatorLuxuryPng,
       alt: "Luxury Dubai pool overlooking Dubai skyline with active brand campaign mockup",
       reverse: false,
       accent: "from-pink-600/35 to-rose-600/25",

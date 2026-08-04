@@ -12,6 +12,7 @@ import {
   Sparkles,
   Anchor,
 } from "lucide-react";
+import { images } from "../assets";
 
 // Robust dynamic scroll-to-view count-up component
 function AnimatedCounter({ value }: { value: string }) {
@@ -98,15 +99,15 @@ export default function TrustBar() {
       clients: [
         {
           name: "Dubai International Airports",
-          logo: "/assets/images/logo1.png",
+          logo: images.logo1,
         },
         {
           name: "DHL Express UAE",
-          logo: "/assets/images/logo2.png",
+          logo: images.logo2,
         },
         {
           name: "SMSA Express",
-          logo: "/assets/images/logo3.png",
+          logo: images.logo3,
         },
       ],
     },
@@ -114,48 +115,48 @@ export default function TrustBar() {
       category: "Global FMCG & Consumer",
       icon: Anchor,
       clients: [
-        { name: "Red Bull", logo: "/assets/client_logos/Global FMCG & Consumer_01.png" },
-        { name: "Awal Dairy", logo: "/assets/client_logos/Global FMCG & Consumer_02.png" },
-        { name: "Kellogg's", logo: "/assets/client_logos/Global FMCG & Consumer_03.png" },
+        { name: "Red Bull", logo: images.fmcg1 },
+        { name: "Awal Dairy", logo: images.fmcg2 },
+        { name: "Kellogg's", logo: images.fmcg3 },
       ],
     },
     {
       category: "Luxury & Premium Retail",
       icon: ShoppingBag,
       clients: [
-        { name: "Van Cleef & Arpels", logo: "/assets/client_logos/Luxury & Premium Retail_01.png" },
+        { name: "Van Cleef & Arpels", logo: images.luxuryRetail },
       ],
     },
     {
       category: "Hospitality & F&B",
       icon: Utensils,
       clients: [
-        { name: "Hello Park", logo: "/assets/client_logos/Hospitality & F&B_01.png" },
-        { name: "Hooters", logo: "/assets/client_logos/Hospitality & F&B_02.webp" },
+        { name: "Hello Park", logo: images.hospitality1 },
+        { name: "Hooters", logo: images.hospitality2 },
       ],
     },
     {
       category: "Entertainment, Media & Sports",
       icon: Film,
       clients: [
-        { name: "Al Riyadi Basketball Academy Dubai", logo: "/assets/client_logos/Entertainment, Media & Sports_01.png" },
-        { name: "Champs Sports", logo: "/assets/client_logos/Entertainment, Media & Sports_02.png" },
-        { name: "MTV Lebanon", logo: "/assets/client_logos/Entertainment, Media & Sports_03.png" },
+        { name: "Al Riyadi Basketball Academy Dubai", logo: images.entertainment1 },
+        { name: "Champs Sports", logo: images.entertainment2 },
+        { name: "MTV Lebanon", logo: images.entertainment3 },
       ],
     },
     {
       category: "Real Estate & Interiors",
       icon: Landmark,
       clients: [
-        { name: "Regal Real Estate", logo: "/assets/client_logos/Real Estate & Interiors_01.jpeg" },
-        { name: "Fidelity Industries", logo: "/assets/client_logos/Real Estate & Interiors_02.png" },
+        { name: "Regal Real Estate", logo: images.realEstate1 },
+        { name: "Fidelity Industries", logo: images.realEstate2 },
       ],
     },
     {
       category: "Beauty",
       icon: Sparkles,
       clients: [
-        { name: "The Beauty Secrets", logo: "/assets/client_logos/Beauty_01.png" },
+        { name: "The Beauty Secrets", logo: images.beauty },
       ],
     },
   ];
