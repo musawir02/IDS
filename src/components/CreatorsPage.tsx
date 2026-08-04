@@ -11,6 +11,7 @@ import {
   Zap,
   Flame,
 } from "lucide-react";
+import { images } from "../assets";
 
 interface CreatorsPageProps {
   onBackToHome: () => void;
@@ -146,7 +147,7 @@ export default function CreatorsPage({ onBackToHome }: CreatorsPageProps) {
             <div className="absolute -inset-1.5 bg-gradient-to-r from-ids-magenta/30 to-ids-purple/30 rounded-3xl blur-xl opacity-60" />
             <div className="relative aspect-square w-full max-w-[400px] overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
               <img
-                src="/assets/images/creator_mood_1780950377032.png"
+                src={images.creatorMoodPng}
                 alt="Modern studio camera and creator space mockup"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -207,7 +208,7 @@ export default function CreatorsPage({ onBackToHome }: CreatorsPageProps) {
               <div className="w-full md:w-1/2">
                 <div className="overflow-hidden rounded-2xl border border-white/10 aspect-video bg-neutral-900 shadow-md">
                   <img
-                    src="/assets/images/creator_growth_1780950393366.png"
+                    src={images.creatorGrowth}
                     alt="Growth analytics board showing numbers climbing"
                     className="w-full h-full object-cover object-center"
                     loading="lazy"
@@ -239,7 +240,7 @@ export default function CreatorsPage({ onBackToHome }: CreatorsPageProps) {
               <div className="w-full md:w-1/2">
                 <div className="overflow-hidden rounded-2xl border border-white/10 aspect-video bg-neutral-900 shadow-md">
                   <img
-                    src="/assets/images/creator_mood_1780950377035.jpeg"
+                    src={images.creatorMoodJpeg}
                     alt="Creative workspace highlighting physical camera setup"
                     className="w-full h-full object-cover object-center"
                     loading="lazy"
@@ -295,7 +296,7 @@ export default function CreatorsPage({ onBackToHome }: CreatorsPageProps) {
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-white/10 aspect-video">
                 <img
-                  src="/assets/images/creator_luxury_1780950411153.jpeg"
+                  src={images.creatorLuxuryJpeg}
                   alt="Dubai luxury sunset backdrop with pools and skyline"
                   className="w-full h-full object-cover object-center"
                   loading="lazy"

@@ -1,4 +1,5 @@
 import React from "react";
+import { images } from "../assets";
 
 interface LogoProps {
   className?: string;
@@ -18,7 +19,7 @@ export default function Logo({ className = "", height = 40, variant = "full" }: 
 
   return (
     <img
-      src="/assets/images/logo_full.png"
+      src={images.logoFull}
       alt="Brand Logo"
       height={numHeight}
       className={`select-none mix-blend-screen ${className}`}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Terminal, Shield, Network, Zap, Cpu, Play, Pause, Tv, Image as ImageIcon } from "lucide-react";
+import { images } from "../assets";
 
 export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -55,7 +56,7 @@ export default function Hero() {
       {/* Dynamic Dual-Skyline background image (Change 5) */}
       <div className="absolute inset-0 z-0 opacity-[0.06] pointer-events-none mix-blend-luminosity">
         <img
-          src="/assets/images/ca_dxb_skyline_1780950361788.png"
+          src={images.skyline}
           alt="California and Dubai Dual Skylines Panoramic Background"
           className="w-full h-full object-cover object-center"
           loading="lazy"
@@ -187,7 +188,7 @@ export default function Hero() {
                   <div className="relative w-full h-full">
                     {/* Generated photorealistic image of operations command screen */}
                     <img
-                      src="/assets/images/ids_global_cyber_soc_1780951724880.png"
+                      src={images.cyberSoc}
                       alt="IDS Security Command Dashboard"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover brightness-95 opacity-90 transition-transform duration-500 group-hover/screen:scale-105"
@@ -207,7 +208,7 @@ export default function Hero() {
                     {/* Live network monitoring loop video */}
                     <video
                       src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-security-data-and-graphs-41355-large.mp4"
-                      poster="/assets/images/cyber_security_center_1780689979069.png"
+                      poster={images.cyberSecurityCenter}
                       autoPlay
                       loop
                       muted

@@ -8,6 +8,7 @@ import {
   Briefcase,
   MapPin,
 } from "lucide-react";
+import { images } from "../assets";
 
 export default function AboutSection() {
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -106,7 +107,7 @@ export default function AboutSection() {
             {/* Human Team/Office Photo (Change 5) */}
             <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-md aspect-[16/9] w-full">
               <img
-                src="/assets/images/corporate_team_1780950428207.png"
+                src={images.corporateTeam}
                 alt="IDS Corporate Specialists and Digital Security Group"
                 className="w-full h-full object-cover object-center transform hover:scale-[1.01] transition-transform duration-500"
                 loading="lazy"
