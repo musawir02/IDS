@@ -22,6 +22,7 @@ import ChatbotWidget from "./components/ChatbotWidget";
 import ScrollToTop from "./components/ScrollToTop";
 import LetsTalkWidget from "./components/LetsTalkWidget";
 import CreatorsPage from "./components/CreatorsPage";
+import TermsPage from "./components/TermsPage";
 import { images } from "./assets";
 
 type PageType =
@@ -31,7 +32,8 @@ type PageType =
   | "services"
   | "creators"
   | "uae-spotlight"
-  | "contact";
+  | "contact"
+  | "terms-and-conditions";
 
 function PageHeader({
   title,
@@ -140,6 +142,8 @@ export default function App() {
         setActivePage("services");
       } else if (hash === "#uae-spotlight") {
         setActivePage("uae-spotlight");
+      } else if (hash === "#terms-and-conditions") {
+        setActivePage("terms-and-conditions");
       } else if (hash === "#contact") {
         setActivePage("contact");
       } else if (hash === "#lets-talk") {
@@ -187,6 +191,16 @@ export default function App() {
       <Navbar activePage={activePage} />
 
       <main className="relative z-10 w-full flex flex-col">
+        {activePage === "terms-and-conditions" && (
+          <>
+            <PageHeader
+              title="Terms & Conditions"
+              subtitle="The terms for using our website and working with Impulse Digital Solutions."
+              category="Legal"
+            />
+            <TermsPage />
+          </>
+        )}
         {activePage === "home" && (
           <>
             <Hero />
