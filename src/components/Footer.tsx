@@ -119,6 +119,9 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-4 pt-4 border-t border-white/5 w-full max-w-4xl text-xs text-slate-500 font-sans">
           <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
             <span>© 2026 IDS. All rights reserved.</span>
+            <a href="/privacy-policy.html" className="text-slate-400 hover:text-ids-magenta transition-colors rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ids-magenta">
+              Privacy Policy
+            </a>
             <a
               href="#terms-and-conditions"
               className="text-slate-400 hover:text-ids-magenta transition-colors rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ids-magenta"

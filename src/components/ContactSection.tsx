@@ -330,7 +330,9 @@ export default function ContactSection() {
                     <div className="flex items-start gap-2.5 p-3.5 bg-white/[0.01] border border-white/5 rounded-xl">
                       <Info className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
                       <p className="text-[10px] text-slate-400 leading-relaxed font-sans">
-                        <strong>Trust Statement:</strong> Your information is 100% confidential. We will never share your data with any third party under any circumstances.
+                        We use the information you submit to respond to your enquiry. Read our{" "}
+                        <a href="/privacy-policy.html" target="_blank" rel="noreferrer" className="text-fuchsia-400 underline underline-offset-2">Privacy Policy (opens in a new tab)</a>{" "}
+                        for details about processing, service providers, and your choices.
                       </p>
                     </div>
 

@@ -191,6 +191,10 @@ export default function ChatbotWidget() {
           </div>
 
           {/* Form input */}
+          <p className="px-3 py-2 text-[10px] text-slate-400 border-t border-white/10">
+            Messages are processed by Google Gemini. Avoid sensitive information.{" "}
+            <a href="/privacy-policy.html" target="_blank" rel="noreferrer" className="text-cyan-300 underline">Privacy Policy (new tab)</a>
+          </p>
           <div className="p-3 bg-slate-950/70 border-t border-white/10 flex items-center gap-2 shrink-0">
             <input
               type="text"
