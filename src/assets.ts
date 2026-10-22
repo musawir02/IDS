@@ -1,4 +1,3 @@
-import logoFull from "./assets/images/logo_full.png";
 import logo1 from "./assets/images/logo1.png";
 import logo2 from "./assets/images/logo2.png";
 import logo3 from "./assets/images/logo3.png";
@@ -29,7 +28,6 @@ import realEstate1 from "./assets/client_logos/Real Estate & Interiors_01.jpeg";
 import realEstate2 from "./assets/client_logos/Real Estate & Interiors_02.png";
 
 export const images = {
-  logoFull,
   logo1,
   logo2,
   logo3,
@@ -58,3 +56,4 @@ export const images = {
   realEstate1,
   realEstate2,
 };
+

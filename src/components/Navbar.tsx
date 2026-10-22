@@ -39,7 +39,7 @@ export default function Navbar({ activePage }: NavbarProps = {}) {
           {/* Logo */}
           <a href="#" className="flex items-center group">
             <Logo
-              height={50}
+              height={50} variant="simplified"
               className="w-auto transform transition-transform duration-300 group-hover:scale-[1.02]"
             />
           </a>
@@ -145,3 +145,4 @@ export default function Navbar({ activePage }: NavbarProps = {}) {
     </header>
   );
 }
+

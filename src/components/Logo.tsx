@@ -1,5 +1,5 @@
-import React from "react";
-import { images } from "../assets";
+import logoFull from "../assets/images/ids-white-tagline.png";
+import logoMark from "../assets/images/ids-white.png";
 
 interface LogoProps {
   className?: string;
@@ -8,22 +8,13 @@ interface LogoProps {
 }
 
 export default function Logo({ className = "", height = 40, variant = "full" }: LogoProps) {
-  // Convert height to number if possible for exact aspect ratio calculation
-  const baseHeight = typeof height === "number" 
-    ? height 
-    : parseInt(height as string, 10) || 40;
-    
-  // Increase this scale factor to make the logo larger or smaller across the site
-  const SCALE_FACTOR = 1.5; 
-  const numHeight = baseHeight * SCALE_FACTOR;
-
   return (
     <img
-      src={images.logoFull}
-      alt="Brand Logo"
-      height={numHeight}
-      className={`select-none mix-blend-screen ${className}`}
-      style={{ height: numHeight, width: "auto" }}
+      src={variant === "full" ? logoFull : logoMark}
+      alt="IDS — Impulse Digital Solutions"
+      className={`select-none shrink-0 ${className}`}
+      style={{ height, width: "auto" }}
+      draggable={false}
     />
   );
 }

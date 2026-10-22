@@ -35,7 +35,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center text-center space-y-10">
         {/* Brand Information */}
         <div className="flex flex-col items-center space-y-4 max-w-lg">
-          <Logo height={42} className="w-auto" />
+          <Logo height={72} className="w-auto" />
           <p className="font-sans text-xs text-slate-400 leading-relaxed">
             IDS is California's only all in one digital partner integrating
             enterprise Cybersecurity, robust Web & App Development, cutting edge
@@ -152,3 +152,4 @@ export default function Footer() {
     </footer>
   );
 }
+
