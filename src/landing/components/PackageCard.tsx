@@ -24,40 +24,32 @@ export default function PackageCard({ pkg, idPrefix, showFootnote = false, onEnq
       id={`${idPrefix}-${pkg.id}`}
       tabIndex={-1}
       aria-labelledby={titleId}
-      className={`relative flex h-full flex-col rounded-3xl border p-6 outline-none sm:p-8 ${
-        pkg.recommended ? "lp-growth-glow border-violet bg-[#1d1330]" : "border-lilac/15 bg-card"
+      className={`flex h-full flex-col rounded-2xl border bg-card p-6 outline-none sm:p-8 ${
+        pkg.recommended ? "border-violet ring-1 ring-violet" : "border-white/10"
       }`}
     >
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <span aria-hidden="true" className="text-3xl font-extrabold tabular-nums text-lilac/70">
-          {pkg.number}
-        </span>
-        <h3 id={titleId} className="text-2xl font-extrabold uppercase tracking-tight">
-          <span className="sr-only">{pkg.number} </span>
+        <h3 id={titleId} className="text-2xl font-bold tracking-tight">
+          <span className="mr-2 tabular-nums text-muted">{pkg.number}</span>
           {pkg.name}
         </h3>
         {pkg.recommended && <RecommendedBadge />}
       </div>
-      <p className="mt-2 text-[12px] font-semibold uppercase tracking-[0.18em] text-muted">{pkg.tagline}</p>
+      <p className="mt-1 text-muted">{pkg.tagline}</p>
 
       <p className="mt-5 flex flex-wrap items-baseline gap-x-2">
-        <span className="text-lg font-bold text-lilac">AED</span>
-        <span className="text-5xl font-extrabold tabular-nums text-lilac">{formatAed(pkg.priceAed)}</span>
-        <span className="text-sm font-semibold uppercase tracking-wider text-muted">/ month</span>
+        <span className="text-4xl font-bold tabular-nums text-ink">AED {formatAed(pkg.priceAed)}</span>
+        <span className="text-muted">/ month</span>
       </p>
-      {pkg.note && <p className="mt-3 text-[15px] font-medium text-lilac">{pkg.note}</p>}
+      {pkg.note && <p className="mt-3 font-medium text-lilac">{pkg.note}</p>}
       {showFootnote && <p className="mt-3 text-sm text-muted">{FOOTNOTE}</p>}
 
-      <div aria-hidden="true" className="my-6 h-px bg-lilac/15" />
+      <div aria-hidden="true" className="my-6 h-px bg-white/10" />
 
-      {parent && (
-        <p className="mb-4 text-[12px] font-bold uppercase tracking-[0.16em] text-lilac">
-          Everything in {parent.name}, plus
-        </p>
-      )}
-      <ul className="space-y-3">
+      {parent && <p className="mb-3 font-semibold text-ink">Everything in {parent.name}, plus:</p>}
+      <ul className="space-y-2.5">
         {pkg.inclusions.map((inclusion) => (
-          <li key={inclusion.label} className="flex gap-3 text-base text-ink">
+          <li key={inclusion.label} className="flex gap-3 text-ink">
             <Check aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-lilac" />
             <span>{inclusion.label}</span>
           </li>
@@ -68,7 +60,6 @@ export default function PackageCard({ pkg, idPrefix, showFootnote = false, onEnq
       <div className="mt-auto flex flex-col gap-3 pt-8">
         <Button
           variant={pkg.recommended ? "primary" : "secondary"}
-          arrow={pkg.recommended}
           fullWidth
           onClick={() => onEnquire(pkg.id, `package_card_${idPrefix}`)}
         >

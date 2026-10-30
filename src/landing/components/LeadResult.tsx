@@ -1,5 +1,5 @@
 import { forwardRef, ReactNode } from "react";
-import { AlertTriangle, Clock } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 import { AddOnId, PackageId } from "../../types";
 import { getPackage } from "../content";
 import { notSentMessage, packageMessage, uncertainMessage } from "../../lib/whatsapp";
@@ -26,14 +26,14 @@ interface LeadResultProps {
 
 function Panel({ icon, children }: { icon: ReactNode; children: ReactNode }) {
   return (
-    <div className="lp-fade rounded-3xl border border-lilac/15 bg-card p-6 sm:p-8">
+    <div className="rounded-2xl border border-white/10 bg-card p-6 sm:p-8">
       <div className="mb-5">{icon}</div>
       {children}
     </div>
   );
 }
 
-const headingClass = "text-2xl font-extrabold tracking-tight outline-none";
+const headingClass = "text-2xl font-bold tracking-tight outline-none";
 
 const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function LeadResult(
   { phase, reference, name, packageId, addOns, contactMethod, message, onTryAgain, onSendAgain, onEdit, onReset },
@@ -43,14 +43,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
 
   if (phase === "sent") {
     return (
-      <Panel
-        icon={
-          <svg viewBox="0 0 48 48" aria-hidden="true" className="size-14">
-            <circle cx="24" cy="24" r="22" className="fill-violet/20 stroke-violet" strokeWidth="2" />
-            <path d="M14 25l7 7 13-15" fill="none" className="lp-draw stroke-lilac" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        }
-      >
+      <Panel icon={<CheckCircle2 aria-hidden="true" className="size-10 text-lilac" />}>
         <h3 ref={ref} tabIndex={-1} className={headingClass}>
           Thanks, {name}.
         </h3>
@@ -73,7 +66,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
 
   if (phase === "not_sent") {
     return (
-      <Panel icon={<AlertTriangle aria-hidden="true" className="size-12 text-error" />}>
+      <Panel icon={<AlertTriangle aria-hidden="true" className="size-10 text-error" />}>
         <h3 ref={ref} tabIndex={-1} className={headingClass}>
           We couldn't send your enquiry.
         </h3>
@@ -81,7 +74,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
           Nothing was sent, so it's safe to try again, or send it to us on WhatsApp.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Button arrow onClick={onTryAgain}>
+          <Button onClick={onTryAgain}>
             Try again
           </Button>
           <WhatsAppButton
@@ -100,7 +93,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
 
   if (phase === "uncertain") {
     return (
-      <Panel icon={<Clock aria-hidden="true" className="size-12 text-lilac" />}>
+      <Panel icon={<Clock aria-hidden="true" className="size-10 text-lilac" />}>
         <h3 ref={ref} tabIndex={-1} className={headingClass}>
           We couldn't confirm whether your enquiry reached us.
         </h3>
@@ -124,7 +117,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
   }
 
   return (
-    <Panel icon={<AlertTriangle aria-hidden="true" className="size-12 text-error" />}>
+    <Panel icon={<AlertTriangle aria-hidden="true" className="size-10 text-error" />}>
       <h3 ref={ref} tabIndex={-1} className={headingClass}>
         Too many attempts right now.
       </h3>

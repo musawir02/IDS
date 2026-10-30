@@ -14,13 +14,13 @@ export default function IncludedFeatures({ pkg, idPrefix }: { pkg: MarketingPack
   const regionId = `${idPrefix}-${pkg.id}-inherited`;
 
   return (
-    <div className="mt-5 rounded-2xl border border-lilac/15 bg-night/40">
+    <div className="mt-5 rounded-xl border border-white/10">
       <button
         type="button"
         aria-expanded={open}
         aria-controls={regionId}
         onClick={() => setOpen((value) => !value)}
-        className="flex min-h-12 w-full items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left text-sm font-semibold text-ink"
+        className="flex min-h-12 w-full items-center justify-between gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-ink"
       >
         <span>
           Also includes everything in {parent.name} ({count} features)
@@ -35,9 +35,7 @@ export default function IncludedFeatures({ pkg, idPrefix }: { pkg: MarketingPack
           <div className="space-y-4 px-4 pb-4">
             {groups.map((group) => (
               <div key={group.from.id}>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">
-                  From {group.from.name}
-                </p>
+                <p className="text-sm font-semibold text-muted">From {group.from.name}</p>
                 <ul className="mt-2 space-y-2">
                   {group.items.map((item) => (
                     <li key={item} className="flex gap-2.5 text-[15px] text-ink">

@@ -240,8 +240,6 @@ function composeEmail(enquiry: CleanEnquiry, ctx: EmailContext): OutgoingMail {
     {
       title: "Details",
       rows: [
-        ["Business type", enquiry.businessType || notGiven],
-        ["Planned monthly ad budget", enquiry.adBudget || notGiven],
         ["Message", enquiry.message || notGiven],
       ],
     },

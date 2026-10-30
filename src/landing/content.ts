@@ -16,13 +16,11 @@ import {
 export const BRAND_NAME = "IDS – Impulse Digital Solutions";
 
 export const HERO = {
-  titleLead: "Digital Marketing",
-  titleAccent: "Packages",
+  title: "Digital Marketing Packages",
   tagline: "Strategy. Content. Ads. Real Growth.",
   // Draft copy from the approved proposal (Part B6), awaiting confirmation
   subhead:
     "Social media management, content creation, Meta & Google Ads, SEO, AEO and GEO in four monthly packages.",
-  channels: ["Social media", "Content", "Meta Ads", "Google Ads", "SEO", "AEO + GEO"],
 };
 
 export const CTA_LABEL = "Let's grow your business";
@@ -223,76 +221,23 @@ export const GEO_DEFINITION =
   "GEO (Generative Engine Optimization) is work to improve how your business is represented across AI-powered search and answer experiences, such as AI overviews and AI assistants.";
 export const AI_QUALIFIER =
   "AI-generated results are controlled by each platform and change often. These services aim to improve your visibility; they can't guarantee that your business will appear in, or be cited by, any AI-generated answer.";
-export const SEO_QUALIFIER = "Search rankings can't be guaranteed either.";
 
-export const WHAT_YOU_GET = [
-  {
-    id: "content",
-    title: "Content & social media",
-    body: "Graphic posts and reels designed for your brand, with content and captions created for you. Your Facebook and Instagram pages are managed, and your Instagram profile is optimized.",
-    includedIn: "All packages · reels from Growth · edited reels in Premium",
-  },
-  {
-    id: "ads",
-    title: "Advertising",
-    body: "Your Meta Ads are managed in every package, and your Google Ads from Growth. Advertising budgets are not included in the package prices.",
-    includedIn: "Meta Ads in all packages · Google Ads from Growth",
-  },
-  {
-    id: "search",
-    title: "Search & AI visibility",
-    body: "Google Business Profile optimization, Local SEO and Website SEO to improve how you're found in search. In Premium, AEO + GEO work to improve your visibility across AI-powered search and answer experiences.",
-    includedIn:
-      "Google Business Profile in all packages · Local SEO from Growth · Website SEO from Professional · AEO + GEO in Premium",
-  },
-  {
-    id: "reporting",
-    title: "Strategy & reporting",
-    body: "A marketing strategy developed for your business, and a monthly performance report.",
-    includedIn: "All packages",
-  },
-] as const;
-
+// Only questions with confirmed answers are shown. Add these once the business answers them:
+// how much to spend on ads; minimum contract and cancellation; upgrading or downgrading;
+// Reels vs Edited Reels; add-on billing and which packages they suit; Arabic content;
+// when results can be expected.
 export const FAQ: FaqItem[] = [
   {
     question: "Is the advertising budget included?",
     answer: ["No. Advertising budgets are not included in the package prices."],
   },
   {
-    question: "How much should I spend on ads?",
-    answer: ["[TO CONFIRM: ad budget guidance]"],
-  },
-  {
     question: "Does VAT apply?",
     answer: ["Yes. VAT applies to all rates."],
   },
   {
-    question: "What's the minimum contract, and how do I cancel?",
-    answer: ["[TO CONFIRM: contract terms: minimum term, billing cycle and cancellation]"],
-  },
-  {
-    question: "Can I upgrade or downgrade?",
-    answer: ["[TO CONFIRM: upgrade and downgrade rules]"],
-  },
-  {
-    question: "What's the difference between Reels and Edited Reels?",
-    answer: ["[TO CONFIRM: difference between Reels and Edited Reels]"],
-  },
-  {
-    question: "Are the add-ons one-off, and can I add them to any package?",
-    answer: ["[TO CONFIRM: add-on billing and which packages they can be added to]"],
-  },
-  {
-    question: "Do you create Arabic content?",
-    answer: ["[TO CONFIRM: Arabic content]"],
-  },
-  {
     question: "What are AEO and GEO, and can you guarantee AI visibility?",
     answer: [AEO_DEFINITION, GEO_DEFINITION, `AEO + GEO are included in Premium. ${AI_QUALIFIER}`],
-  },
-  {
-    question: "When will I see results?",
-    answer: ["[TO CONFIRM: answer about results and timelines]"],
   },
 ];
 
@@ -307,19 +252,13 @@ export const NEXT_STEPS = [
 export const CONTACT = {
   whatsappDisplay: "+971 55 990 4045",
   whatsappDigits: "971559904045",
-  publicPhone: "[TO CONFIRM: public phone number]",
-  publicEmail: "[TO CONFIRM: public email address]",
-  businessAddress: "[TO CONFIRM: business address]",
+  publicEmail: "rajinazihah@gmail.com",
 };
 
 export const BUSINESS = {
   legalEntity: "[TO CONFIRM: legal entity name]",
   vatDetails: "[TO CONFIRM: VAT details to display, if any]",
 };
-
-// Options come from the business (Part C6); the placeholders keep the launch check failing until then
-export const BUSINESS_TYPE_OPTIONS = ["[TO CONFIRM: business type options]"];
-export const AD_BUDGET_OPTIONS = ["[TO CONFIRM: monthly ad budget ranges]"];
 
 export const PHONE_COUNTRIES = [
   { code: "971", label: "UAE +971" },

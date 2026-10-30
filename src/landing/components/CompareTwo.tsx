@@ -43,7 +43,7 @@ export default function CompareTwo({ onlyDifferences }: { onlyDifferences: boole
   };
 
   const columns = [getPackage(first), getPackage(second)];
-  const select = "mt-1 block h-12 w-full rounded-xl border border-lilac/20 bg-night/60 px-3 text-base text-ink";
+  const select = "mt-1 block h-12 w-full rounded-lg border border-white/15 bg-night px-3 text-base text-ink";
 
   return (
     <div>
@@ -70,7 +70,7 @@ export default function CompareTwo({ onlyDifferences }: { onlyDifferences: boole
         </label>
       </div>
 
-      <table className="mt-4 w-full border-collapse overflow-hidden rounded-2xl text-sm">
+      <table className="mt-4 w-full border-collapse overflow-hidden rounded-xl text-sm">
         <caption className="sr-only">
           Comparison of {columns[0].name} and {columns[1].name}
         </caption>
@@ -81,20 +81,20 @@ export default function CompareTwo({ onlyDifferences }: { onlyDifferences: boole
             </th>
             {columns.map((pkg) => (
               <th key={pkg.id} scope="col" className={`w-24 px-2 py-3 text-center ${pkg.recommended ? "bg-violet/15" : ""}`}>
-                <span className="block text-[12px] tabular-nums text-lilac">{pkg.number}</span>
-                <span className="block font-extrabold uppercase text-ink">{pkg.name}</span>
+                <span className="block text-xs tabular-nums text-muted">{pkg.number}</span>
+                <span className="block font-bold text-ink">{pkg.name}</span>
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-lilac/10 bg-card/60">
+        <tbody className="divide-y divide-white/10 bg-card/60">
           <tr>
             <th scope="row" className="px-3 py-3 text-left font-medium text-ink">
               {COMPARE_PRICE_ROW_LABEL}
             </th>
             {columns.map((pkg) => (
               <td key={pkg.id} className={`px-2 py-3 text-center ${pkg.recommended ? "bg-violet/10" : ""}`}>
-                <span className="font-bold tabular-nums text-lilac">AED {formatAed(pkg.priceAed)}</span>
+                <span className="font-semibold tabular-nums text-ink">AED {formatAed(pkg.priceAed)}</span>
                 <span className="block text-xs text-muted">/ month</span>
               </td>
             ))}
@@ -110,7 +110,7 @@ export default function CompareTwo({ onlyDifferences }: { onlyDifferences: boole
                   <th
                     scope="colgroup"
                     colSpan={3}
-                    className="bg-plum px-3 pb-2 pt-4 text-left text-[12px] font-bold uppercase tracking-[0.14em] text-lilac"
+                    className="bg-plum px-3 pb-2 pt-4 text-left text-sm font-semibold text-muted"
                   >
                     {group.title}
                   </th>

@@ -123,8 +123,6 @@ export interface LeadPayload {
   resend_after_uncertain?: boolean;
   package_id: string;
   addon_ids: string[];
-  business_type: string;
-  ad_budget: string;
   name: string;
   business_name: string;
   contact_method: string;
@@ -144,8 +142,6 @@ export interface LeadPayload {
 export type LeadField =
   | "package_id"
   | "addon_ids"
-  | "business_type"
-  | "ad_budget"
   | "name"
   | "business_name"
   | "contact_method"

@@ -27,7 +27,15 @@ for (const file of files) {
 for (const item of [...placeholders].sort()) problems.push(`Unconfirmed: ${item}`);
 
 const secrets = ["SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS", "SMTP_FROM", "LEAD_TO_EMAIL"];
-const values = secrets.map((key) => process.env[key]).filter((value) => value && value.length > 3);
+// The business email is shown on the page on purpose, and may also be the enquiry recipient or
+// the SMTP login, so that one address is allowed. Every other server-only value is still a leak.
+const content = fs.existsSync(path.resolve("src/landing/content.ts"))
+  ? fs.readFileSync(path.resolve("src/landing/content.ts"), "utf8")
+  : "";
+const publicEmail = content.match(/publicEmail:\s*"([^"]+)"/)?.[1]?.toLowerCase();
+const values = secrets
+  .map((key) => process.env[key])
+  .filter((value) => value && value.length > 3 && value.toLowerCase() !== publicEmail);
 for (const file of files) {
   for (const word of [...secrets, ...values]) {
     if (file.text.includes(word)) problems.push(`Server-only setting found in ${file.name}`);

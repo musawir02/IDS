@@ -1,12 +1,11 @@
 import { forwardRef } from "react";
+import { ChevronRight, Crown } from "lucide-react";
 import { PackageId } from "../../types";
-import { CTA_LABEL, FOOTNOTE, HERO, PACKAGES } from "../content";
+import { CTA_LABEL, FOOTNOTE, formatAed, HERO, PACKAGES } from "../content";
 import { generalMessage } from "../../lib/whatsapp";
 import Button from "./ui/Button";
 import PricePill from "./ui/PricePill";
 import WhatsAppButton from "./ui/WhatsAppButton";
-import { PostVisual, ReelVisual, SearchAdVisual } from "./IllustrativeFrame";
-import { Crown } from "lucide-react";
 
 interface HeroProps {
   onSeePackages: () => void;
@@ -15,58 +14,37 @@ interface HeroProps {
 
 const Hero = forwardRef<HTMLElement, HeroProps>(function Hero({ onSeePackages, onQuickLink }, ref) {
   return (
-    <section ref={ref} aria-labelledby="hero-title" className="relative overflow-hidden">
-      <div aria-hidden="true" className="lp-hero-glow pointer-events-none absolute -right-40 -top-40 size-[44rem]" />
-
-      <div className="container-lp relative grid gap-12 pb-16 pt-8 sm:pt-12 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-24 lg:pt-16">
+    <section ref={ref} aria-labelledby="hero-title" className="border-b border-white/10">
+      <div className="container-lp grid grid-cols-1 gap-10 pb-14 pt-10 lg:grid-cols-12 lg:items-center lg:gap-16 lg:pb-20 lg:pt-16">
         <div className="lg:col-span-7">
-          <h1
-            id="hero-title"
-            className="text-[clamp(2.6rem,9vw,5.75rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.02em]"
-          >
-            <span className="lp-rise block">{HERO.titleLead}</span>
-            <span className="lp-rise lp-gradient-text block [animation-delay:120ms]">{HERO.titleAccent}</span>
+          <h1 id="hero-title" className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            {HERO.title}
           </h1>
-          <p className="lp-rise mt-4 text-[13px] font-semibold uppercase tracking-[0.22em] text-lilac [animation-delay:200ms] sm:text-sm">
-            {HERO.tagline}
-          </p>
-          <p className="lp-rise mt-5 max-w-xl text-base leading-relaxed text-muted [animation-delay:260ms] sm:text-lg">
-            {HERO.subhead}
-          </p>
+          <p className="mt-3 text-lg font-medium text-lilac sm:text-xl">{HERO.tagline}</p>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{HERO.subhead}</p>
 
-          <div className="lp-rise mt-6 [animation-delay:320ms]">
+          <div className="mt-7">
             <PricePill />
-            <p className="mt-3 text-sm text-muted">{FOOTNOTE}</p>
+            <p className="mt-2 text-sm text-muted">{FOOTNOTE}</p>
           </div>
-
-          <ul aria-label="Services covered" className="mt-6 flex flex-wrap gap-2">
-            {HERO.channels.map((channel) => (
-              <li
-                key={channel}
-                className="rounded-full border border-lilac/20 bg-card/70 px-3 py-1.5 text-[13px] font-medium text-ink"
-              >
-                {channel}
-              </li>
-            ))}
-          </ul>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button arrow onClick={onSeePackages}>
-              {CTA_LABEL}
-            </Button>
+            <Button onClick={onSeePackages}>{CTA_LABEL}</Button>
             <WhatsAppButton message={generalMessage()} label="WhatsApp us" location="hero" />
           </div>
+        </div>
 
-          <nav aria-label="Packages" className="mt-8">
-            <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
-              {PACKAGES.map((pkg) => (
-                <li key={pkg.id}>
-                  <button
-                    type="button"
-                    onClick={() => onQuickLink(pkg.id)}
-                    className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
-                  >
-                    <span className="tabular-nums text-lilac">{pkg.number}</span>
+        <nav aria-label="Packages" className="lg:col-span-5">
+          <ul className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-card">
+            {PACKAGES.map((pkg) => (
+              <li key={pkg.id}>
+                <button
+                  type="button"
+                  onClick={() => onQuickLink(pkg.id)}
+                  className="flex min-h-14 w-full items-center gap-3 px-5 py-4 text-left transition-colors hover:bg-white/5"
+                >
+                  <span className="w-6 text-sm tabular-nums text-muted">{pkg.number}</span>
+                  <span className="flex flex-1 items-center gap-1.5 font-semibold text-ink">
                     {pkg.name}
                     {pkg.recommended && (
                       <>
@@ -74,22 +52,14 @@ const Hero = forwardRef<HTMLElement, HeroProps>(function Hero({ onSeePackages, o
                         <span className="sr-only">(recommended)</span>
                       </>
                     )}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
-        <div className="lg:col-span-5">
-          <div className="mx-auto grid max-w-md grid-cols-[0.85fr_1fr] items-end gap-4 lg:max-w-none">
-            <ReelVisual className="lp-rise [animation-delay:300ms]" />
-            <div className="space-y-4">
-              <PostVisual className="lp-rise [animation-delay:400ms]" />
-              <SearchAdVisual className="lp-rise hidden [animation-delay:500ms] sm:block" />
-            </div>
-          </div>
-        </div>
+                  </span>
+                  <span className="text-sm tabular-nums text-muted">AED {formatAed(pkg.priceAed)} / month</span>
+                  <ChevronRight aria-hidden="true" className="size-4 shrink-0 text-muted" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </section>
   );

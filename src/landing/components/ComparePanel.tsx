@@ -15,7 +15,7 @@ function CompareTable({ onlyDifferences, onEnquire }: { onlyDifferences: boolean
   const firstCol = "sticky left-0 z-[1] bg-card px-4 py-3 text-left font-medium text-ink";
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-lilac/15 lg:overflow-visible">
+    <div className="overflow-x-auto rounded-2xl border border-white/10 lg:overflow-visible">
       <table className="w-full min-w-[720px] border-collapse text-sm">
         <caption className="sr-only">Comparison of the four Digital Marketing Packages</caption>
         <thead>
@@ -28,7 +28,7 @@ function CompareTable({ onlyDifferences, onEnquire }: { onlyDifferences: boolean
                 key={pkg.id}
                 scope="col"
                 className={`bg-card px-4 py-4 text-center align-bottom lg:sticky lg:top-16 lg:z-[1] ${
-                  pkg.recommended ? "bg-[#221636]" : ""
+                  pkg.recommended ? "bg-[#21182d]" : ""
                 }`}
               >
                 {pkg.recommended && (
@@ -36,20 +36,20 @@ function CompareTable({ onlyDifferences, onEnquire }: { onlyDifferences: boolean
                     <RecommendedBadge small />
                   </span>
                 )}
-                <span className="block text-[12px] font-semibold tabular-nums text-lilac">{pkg.number}</span>
-                <span className="block text-base font-extrabold uppercase text-ink">{pkg.name}</span>
+                <span className="block text-xs tabular-nums text-muted">{pkg.number}</span>
+                <span className="block text-base font-bold text-ink">{pkg.name}</span>
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-lilac/10">
+        <tbody className="divide-y divide-white/10">
           <tr>
             <th scope="row" className={firstCol}>
               {COMPARE_PRICE_ROW_LABEL}
             </th>
             {PACKAGES.map((pkg) => (
               <td key={pkg.id} className={cell(pkg.recommended)}>
-                <span className="font-bold tabular-nums text-lilac">AED {formatAed(pkg.priceAed)}</span>
+                <span className="font-semibold tabular-nums text-ink">AED {formatAed(pkg.priceAed)}</span>
                 <span className="block text-xs text-muted">/ month</span>
               </td>
             ))}
@@ -63,7 +63,7 @@ function CompareTable({ onlyDifferences, onEnquire }: { onlyDifferences: boolean
                   <th
                     scope="colgroup"
                     colSpan={PACKAGES.length + 1}
-                    className="bg-plum px-4 pb-2 pt-5 text-left text-[12px] font-bold uppercase tracking-[0.16em] text-lilac"
+                    className="bg-plum px-4 pb-2 pt-5 text-left text-sm font-semibold text-muted"
                   >
                     {group.title}
                   </th>
@@ -125,7 +125,7 @@ export default function ComparePanel({ onEnquire }: { onEnquire: (id: PackageId,
           aria-expanded={open}
           aria-controls="compare-panel"
           onClick={toggle}
-          className="inline-flex min-h-12 items-center gap-2 rounded-full border border-lilac/30 px-6 text-[15px] font-semibold text-ink transition-colors hover:border-lilac hover:bg-lilac/10"
+          className="inline-flex min-h-12 items-center gap-2 rounded-lg border border-white/20 px-5 text-[15px] font-semibold text-ink transition-colors hover:border-white/40 hover:bg-white/5"
         >
           {open ? "Hide the comparison" : "Compare all four packages"}
           <ChevronDown aria-hidden="true" className={`size-4 transition-transform ${open ? "rotate-180" : ""}`} />
@@ -134,7 +134,7 @@ export default function ComparePanel({ onEnquire }: { onEnquire: (id: PackageId,
 
       <div id="compare-panel" hidden={!open} className="mt-6">
         {open && (
-          <div className="lp-fade">
+          <div>
             <label className="mb-4 inline-flex min-h-11 cursor-pointer items-center gap-3 text-sm font-medium text-ink">
               <input
                 type="checkbox"

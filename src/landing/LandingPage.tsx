@@ -12,7 +12,6 @@ import { track } from "../lib/analytics";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Packages from "./components/Packages";
-import WhatYouGet from "./components/WhatYouGet";
 import Faq from "./components/Faq";
 import Enquiry from "./components/Enquiry";
 import Footer from "./components/Footer";
@@ -87,28 +86,6 @@ export default function LandingPage() {
     track("lp_view");
   }, []);
 
-  // Scroll reveals, applied only once the observer is running
-  useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-    const root = document.documentElement;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px" },
-    );
-    document.querySelectorAll("[data-reveal]").forEach((element) => observer.observe(element));
-    root.classList.add("lp-reveal-ready");
-    return () => {
-      observer.disconnect();
-      root.classList.remove("lp-reveal-ready");
-    };
-  }, []);
-
   const selectPackage = useCallback((id: PackageId, location: string) => {
     setSelected(id);
     track("package_select", { package_id: id, package_price: getPackage(id).priceAed, location });
@@ -152,7 +129,7 @@ export default function LandingPage() {
     <>
       <a
         href="#main"
-        className="sr-only z-50 rounded-full bg-violet px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-50 rounded-lg bg-violet px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         Skip to content
       </a>
@@ -167,7 +144,6 @@ export default function LandingPage() {
           onAddAddOn={addAddOn}
           onRemoveAddOn={removeAddOn}
         />
-        <WhatYouGet />
         <Faq />
         <Enquiry
           ref={enquiryRef}

@@ -1,14 +1,13 @@
 import Logo from "../../components/Logo";
-import { BUSINESS, CONTACT } from "../content";
+import { BUSINESS } from "../content";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-lilac/15 pb-28 pt-12 md:pb-12">
+    <footer className="border-t border-white/10 pb-28 pt-12 md:pb-12">
       <div className="container-lp flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <div className="space-y-2 text-sm text-muted">
           <Logo height={56} />
           <p className="pt-3">{BUSINESS.legalEntity}</p>
-          <p>{CONTACT.businessAddress}</p>
           <p>{BUSINESS.vatDetails}</p>
         </div>
         <nav aria-label="Legal and site links">

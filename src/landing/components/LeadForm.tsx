@@ -1,23 +1,8 @@
-import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { AddOnId, LeadErrors, LeadField, LeadPayload, PackageId } from "../../types";
-import {
-  AD_BUDGET_OPTIONS,
-  ADD_ONS,
-  BUSINESS_TYPE_OPTIONS,
-  CONSENT,
-  formatAed,
-  getPackage,
-  PACKAGES,
-  PHONE_COUNTRIES,
-} from "../content";
-import {
-  CONTACT_METHODS,
-  LIMITS,
-  refFromSubmissionId,
-  STEP_ONE_FIELDS,
-  validateEnquiry,
-} from "../validation";
+import { ADD_ONS, CONSENT, formatAed, PACKAGES, PHONE_COUNTRIES } from "../content";
+import { CONTACT_METHODS, LIMITS, refFromSubmissionId, validateEnquiry } from "../validation";
 import { readCampaign, track } from "../../lib/analytics";
 import Button from "./ui/Button";
 import RecommendedBadge from "./ui/RecommendedBadge";
@@ -36,8 +21,6 @@ const CHECK_WINDOW_MARGIN_MS = 5_000;
 type Phase = "editing" | "sending" | "checking" | ResultPhase;
 
 interface Values {
-  business_type: string;
-  ad_budget: string;
   name: string;
   business_name: string;
   contact_method: string;
@@ -50,8 +33,6 @@ interface Values {
 }
 
 const EMPTY: Values = {
-  business_type: "",
-  ad_budget: "",
   name: "",
   business_name: "",
   contact_method: "",
@@ -67,8 +48,6 @@ const EMPTY: Values = {
 const FIELD_ORDER: LeadField[] = [
   "package_id",
   "addon_ids",
-  "business_type",
-  "ad_budget",
   "name",
   "business_name",
   "contact_method",
@@ -98,9 +77,12 @@ function newSubmissionId() {
 type FetchResult = { httpStatus: number; data: Record<string, unknown> | null } | { failed: "network" | "timeout" | "aborted" };
 
 const inputClass = (invalid: boolean) =>
-  `mt-2 block h-12 rounded-xl border bg-night/60 px-4 text-base text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-lilac disabled:opacity-60 ${
-    invalid ? "border-error" : "border-lilac/20"
+  `mt-2 block h-12 rounded-lg border bg-night px-4 text-base text-ink placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-lilac disabled:opacity-60 ${
+    invalid ? "border-error" : "border-white/15"
   }`;
+
+const optionClass =
+  "flex cursor-pointer items-center gap-3 rounded-lg border border-white/10 bg-night p-3.5 transition-colors has-[:checked]:border-violet has-[:checked]:bg-violet/10";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -126,7 +108,6 @@ interface LeadFormProps {
 }
 
 export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsChange, focusRequest }: LeadFormProps) {
-  const [step, setStep] = useState<1 | 2>(1);
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<LeadErrors>({});
   const [summary, setSummary] = useState("");
@@ -174,11 +155,6 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
     ...values,
   });
 
-  const errorsFor = (all: LeadErrors, which: 1 | 2): LeadErrors =>
-    Object.fromEntries(
-      Object.entries(all).filter(([field]) => STEP_ONE_FIELDS.includes(field as LeadField) === (which === 1)),
-    );
-
   const validate = (): LeadErrors => {
     const result = validateEnquiry(input());
     return result.ok === false ? result.errors : {};
@@ -202,7 +178,7 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
       }
       return false;
     });
-    (empty ?? formRef.current?.querySelector<HTMLElement>("[data-next]"))?.focus({ preventScroll: true });
+    (empty ?? form?.querySelector<HTMLElement>('button[type="submit"]'))?.focus({ preventScroll: true });
   };
 
   useEffect(() => {
@@ -262,20 +238,6 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
     setSummary(count === 1 ? "Please check 1 field." : `Please check ${count} fields.`);
     const first = FIELD_ORDER.find((field) => all[field]);
     if (first) window.setTimeout(() => focusField(first), 0);
-  };
-
-  const goToStepTwo = () => {
-    const stepErrors = errorsFor(validate(), 1);
-    if (Object.keys(stepErrors).length) return showErrors(stepErrors);
-    setErrors({});
-    setSummary("");
-    if (!session.current) {
-      const id = newSubmissionId();
-      session.current = { id, ref: refFromSubmissionId(id) };
-    }
-    track("form_step_complete", { step: 1, package_id: packageId });
-    setStep(2);
-    window.setTimeout(() => focusField("name"), 0);
   };
 
   // --- Sending and waiting for a final result -------------------------------------------
@@ -379,8 +341,6 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
       resend_after_uncertain: resendAfterUncertain || undefined,
       package_id: packageId,
       addon_ids: addOns,
-      business_type: values.business_type,
-      ad_budget: values.ad_budget,
       name: values.name,
       business_name: values.business_name,
       contact_method: values.contact_method,
@@ -417,7 +377,6 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
       const fieldErrors = (result.data?.errors ?? {}) as LeadErrors;
       if (!Object.keys(fieldErrors).length) return finish("not_sent");
       setPhase("editing");
-      setStep(Object.keys(errorsFor(fieldErrors, 1)).length ? 1 : 2);
       return showErrors(fieldErrors);
     }
     if (status === "in_progress") {
@@ -431,14 +390,15 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
   const submit = (event: FormEvent) => {
     event.preventDefault();
     if (busy) return;
-    if (step === 1) return goToStepTwo();
     const all = validate();
-    if (Object.keys(all).length) {
-      if (Object.keys(errorsFor(all, 1)).length) setStep(1);
-      return showErrors(all);
-    }
+    if (Object.keys(all).length) return showErrors(all);
     setErrors({});
     setSummary("");
+    // One reference per enquiry: a retry after "Not sent" or an edit keeps it
+    if (!session.current) {
+      const id = newSubmissionId();
+      session.current = { id, ref: refFromSubmissionId(id) };
+    }
     void send(false);
   };
 
@@ -450,7 +410,6 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
     setErrors({});
     setSummary("");
     setStarted(false);
-    setStep(1);
     setPhase("editing");
   };
 
@@ -469,10 +428,7 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
         message={values.message}
         onTryAgain={() => void send(false)}
         onSendAgain={() => void send(true)}
-        onEdit={() => {
-          setPhase("editing");
-          setStep(2);
-        }}
+        onEdit={() => setPhase("editing")}
         onReset={reset}
       />
     );
@@ -482,7 +438,6 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
     [errors[field] ? `lf-${field}-error` : "", hint ?? ""].filter(Boolean).join(" ") || undefined;
   const phoneRequired = values.contact_method === "whatsapp" || values.contact_method === "call";
   const emailRequired = values.contact_method === "email";
-  const selectedPackage = getPackage(packageId);
 
   return (
     <form
@@ -490,322 +445,261 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
       noValidate
       onSubmit={submit}
       aria-labelledby="lead-form-title"
-      className="relative rounded-3xl border border-lilac/15 bg-card p-6 sm:p-8"
+      className="relative rounded-2xl border border-white/10 bg-card p-6 sm:p-8"
     >
-      <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-lilac">Step {step} of 2</p>
-      <h3 id="lead-form-title" className="mt-1 text-2xl font-extrabold tracking-tight">
-        {step === 1 ? "Your package" : "Your details"}
+      <h3 id="lead-form-title" className="text-2xl font-bold tracking-tight">
+        Your enquiry
       </h3>
 
       <p role="alert" className="mt-3 text-sm font-semibold text-error empty:hidden">
         {summary}
       </p>
 
-      <fieldset disabled={busy} className="mt-6 min-w-0">
-        {step === 1 ? (
-          <div key="step-1" className="lp-step space-y-6">
-            <fieldset>
-              <legend className="text-sm font-semibold text-ink">
-                Package
-                <Requirement required />
-              </legend>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                {PACKAGES.map((pkg, index) => (
-                  <label
-                    key={pkg.id}
-                    className="flex min-h-16 cursor-pointer items-center gap-3 rounded-2xl border border-lilac/20 bg-night/40 p-4 transition-colors has-[:checked]:border-violet has-[:checked]:bg-violet/15"
-                  >
-                    <input
-                      type="radio"
-                      name="lf-package"
-                      value={pkg.id}
-                      checked={packageId === pkg.id}
-                      onChange={() => {
-                        markStarted();
-                        onPackageChange(pkg.id);
-                      }}
-                      data-field={index === 0 ? "package_id" : undefined}
-                      className="size-5 shrink-0 accent-violet"
-                    />
-                    <span className="min-w-0 flex-1">
-                      <span className="flex flex-wrap items-center gap-2 font-bold text-ink">
-                        <span className="tabular-nums text-lilac">{pkg.number}</span>
-                        {pkg.name}
-                        {pkg.recommended && <RecommendedBadge small />}
-                      </span>
-                      <span className="block text-sm tabular-nums text-muted">AED {formatAed(pkg.priceAed)} / month</span>
-                    </span>
-                  </label>
-                ))}
-              </div>
-              <FieldError id="lf-package_id-error" message={errors.package_id} />
-            </fieldset>
-
-            <fieldset>
-              <legend className="text-sm font-semibold text-ink">
-                Optional add-ons
-                <Requirement required={false} />
-              </legend>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                {ADD_ONS.map((addOn, index) => (
-                  <label
-                    key={addOn.id}
-                    className="flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border border-lilac/20 bg-night/40 p-4 transition-colors has-[:checked]:border-violet has-[:checked]:bg-violet/15"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={addOns.includes(addOn.id)}
-                      onChange={(event) => {
-                        markStarted();
-                        onAddOnsChange(
-                          event.target.checked ? [...addOns, addOn.id] : addOns.filter((id) => id !== addOn.id),
-                        );
-                      }}
-                      data-field={index === 0 ? "addon_ids" : undefined}
-                      className="size-5 shrink-0 accent-violet"
-                    />
-                    <span>
-                      <span className="block font-semibold text-ink">{addOn.name}</span>
-                      <span className="block text-sm text-muted">
-                        {addOn.detail} · AED {formatAed(addOn.priceAed)}
-                      </span>
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-
-            <div className="grid gap-6 sm:grid-cols-2">
-              <SelectField
-                id="lf-business_type"
-                field="business_type"
-                label="Business type"
-                options={BUSINESS_TYPE_OPTIONS}
-                value={values.business_type}
-                error={errors.business_type}
-                onChange={(value) => update("business_type", value)}
-              />
-              <SelectField
-                id="lf-ad_budget"
-                field="ad_budget"
-                label="Planned monthly ad budget"
-                hint="Advertising budgets are not included in the package prices."
-                options={AD_BUDGET_OPTIONS}
-                value={values.ad_budget}
-                error={errors.ad_budget}
-                onChange={(value) => update("ad_budget", value)}
-              />
-            </div>
-
-            <Button type="submit" arrow fullWidth data-next="">
-              Next: your details
-            </Button>
-          </div>
-        ) : (
-          <div key="step-2" className="lp-step space-y-6">
-            <p className="rounded-2xl border border-lilac/15 bg-night/40 px-4 py-3 text-sm text-muted">
-              Enquiring about{" "}
-              <span className="font-semibold text-ink">
-                {selectedPackage.name} (AED {formatAed(selectedPackage.priceAed)} / month)
-              </span>
-              {addOns.length > 0 && (
-                <> with {addOns.map((id) => ADD_ONS.find((a) => a.id === id)?.name).join(" and ")}</>
-              )}
-              .{" "}
-              <button type="button" className="font-semibold text-lilac underline underline-offset-4" onClick={() => setStep(1)}>
-                Change
-              </button>
-            </p>
-
-            <div className="grid gap-6 sm:grid-cols-2">
-              <TextField
-                id="lf-name"
-                field="name"
-                label="Name"
-                required
-                autoComplete="name"
-                maxLength={LIMITS.name}
-                value={values.name}
-                error={errors.name}
-                describedBy={describedBy("name")}
-                onChange={(value) => update("name", value)}
-                onBlur={() => checkField("name")}
-              />
-              <TextField
-                id="lf-business_name"
-                field="business_name"
-                label="Business name"
-                required
-                autoComplete="organization"
-                maxLength={LIMITS.businessName}
-                value={values.business_name}
-                error={errors.business_name}
-                describedBy={describedBy("business_name")}
-                onChange={(value) => update("business_name", value)}
-                onBlur={() => checkField("business_name")}
-              />
-            </div>
-
-            <fieldset aria-describedby={describedBy("contact_method", "lf-contact-note")}>
-              <legend className="text-sm font-semibold text-ink">
-                How would you like us to reply?
-                <Requirement required />
-              </legend>
-              <p id="lf-contact-note" className="mt-1 text-sm text-muted">
-                {CONSENT.contactNote}
-              </p>
-              <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">
-                {CONTACT_METHODS.map((method, index) => (
-                  <label
-                    key={method.id}
-                    className="flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl border border-lilac/20 bg-night/40 px-2 text-center text-sm font-semibold text-ink transition-colors has-[:checked]:border-violet has-[:checked]:bg-violet/15 sm:text-[15px]"
-                  >
-                    <input
-                      type="radio"
-                      name="lf-contact"
-                      value={method.id}
-                      checked={values.contact_method === method.id}
-                      onChange={() => chooseMethod(method.id)}
-                      data-field={index === 0 ? "contact_method" : undefined}
-                      aria-invalid={Boolean(errors.contact_method)}
-                      className="size-4 shrink-0 accent-violet"
-                    />
-                    {method.label}
-                  </label>
-                ))}
-              </div>
-              <FieldError id="lf-contact_method-error" message={errors.contact_method} />
-            </fieldset>
-
-            <div>
-              <label htmlFor="lf-phone_number" className="block text-sm font-semibold text-ink">
-                Phone / WhatsApp number
-                <Requirement required={phoneRequired} />
-              </label>
-              <div className="flex gap-2">
-                <select
-                  aria-label="Country code"
-                  autoComplete="tel-country-code"
-                  value={values.phone_country}
-                  onChange={(event) => update("phone_country", event.target.value)}
-                  onBlur={() => values.phone_number && checkField("phone_number")}
-                  className={`${inputClass(false)} w-36 shrink-0 px-3 sm:w-44`}
-                >
-                  {PHONE_COUNTRIES.map((country) => (
-                    <option key={country.code} value={country.code}>
-                      {country.label}
-                    </option>
-                  ))}
-                </select>
+      <fieldset disabled={busy} className="mt-6 min-w-0 space-y-6">
+        <fieldset className="min-w-0">
+          <legend className="text-sm font-semibold text-ink">
+            Package
+            <Requirement required />
+          </legend>
+          <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+            {PACKAGES.map((pkg, index) => (
+              <label key={pkg.id} className={optionClass}>
                 <input
-                  id="lf-phone_number"
-                  data-field="phone_number"
-                  type="tel"
-                  inputMode="tel"
-                  autoComplete={values.phone_country === "other" ? "tel" : "tel-national"}
-                  placeholder={values.phone_country === "971" ? "50 123 4567" : values.phone_country === "other" ? "+code number" : ""}
-                  maxLength={24}
-                  value={values.phone_number}
-                  aria-invalid={Boolean(errors.phone_number)}
-                  aria-describedby={describedBy("phone_number")}
-                  onChange={(event) => update("phone_number", event.target.value)}
-                  onBlur={() => checkField("phone_number")}
-                  className={`${inputClass(Boolean(errors.phone_number))} min-w-0 flex-1`}
+                  type="radio"
+                  name="lf-package"
+                  value={pkg.id}
+                  checked={packageId === pkg.id}
+                  onChange={() => {
+                    markStarted();
+                    onPackageChange(pkg.id);
+                  }}
+                  data-field={index === 0 ? "package_id" : undefined}
+                  className="size-5 shrink-0 accent-violet"
                 />
-              </div>
-              <FieldError id="lf-phone_number-error" message={errors.phone_number} />
-            </div>
-
-            <TextField
-              id="lf-email"
-              field="email"
-              label="Email"
-              required={emailRequired}
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              maxLength={LIMITS.email}
-              value={values.email}
-              error={errors.email}
-              describedBy={describedBy("email")}
-              onChange={(value) => update("email", value)}
-              onBlur={() => checkField("email")}
-            />
-
-            <div>
-              <label htmlFor="lf-message" className="block text-sm font-semibold text-ink">
-                Message
-                <Requirement required={false} />
-              </label>
-              <textarea
-                id="lf-message"
-                data-field="message"
-                rows={4}
-                maxLength={LIMITS.message}
-                value={values.message}
-                aria-invalid={Boolean(errors.message)}
-                aria-describedby={describedBy("message", "lf-message-count")}
-                onChange={(event) => update("message", event.target.value)}
-                onBlur={() => checkField("message")}
-                className={`${inputClass(Boolean(errors.message))} h-auto w-full py-3`}
-              />
-              <p id="lf-message-count" className="mt-1 text-right text-xs text-muted">
-                {values.message.length.toLocaleString("en-US")} / {LIMITS.message.toLocaleString("en-US")} characters
-              </p>
-              <FieldError id="lf-message-error" message={errors.message} />
-            </div>
-
-            <label className="flex cursor-pointer gap-3 text-sm text-ink">
-              <input
-                type="checkbox"
-                checked={values.marketing_opt_in}
-                onChange={(event) => update("marketing_opt_in", event.target.checked)}
-                className="mt-0.5 size-5 shrink-0 accent-violet"
-              />
-              <span>
-                {CONSENT.marketingOptIn}
-                <Requirement required={false} />
-              </span>
-            </label>
-
-            {/* Spam trap: hidden from people and assistive technology */}
-            <div aria-hidden="true" className="absolute -left-[10000px] top-auto size-px overflow-hidden">
-              <label htmlFor="lf-website">Leave this field empty</label>
-              <input
-                id="lf-website"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-                value={values.website}
-                onChange={(event) => setValues((current) => ({ ...current, website: event.target.value }))}
-              />
-            </div>
-
-            <div className="flex flex-col-reverse gap-3 sm:flex-row">
-              <Button variant="secondary" onClick={() => setStep(1)} className="sm:w-auto">
-                Back
-              </Button>
-              <Button type="submit" arrow={!busy} fullWidth disabled={busy} aria-describedby="lf-status">
-                {busy ? (
-                  <span className="inline-flex items-center gap-2">
-                    <Loader2 aria-hidden="true" className="size-4 animate-spin" />
-                    Sending your enquiry…
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-center gap-2 font-semibold text-ink">
+                    {pkg.name}
+                    {pkg.recommended && <RecommendedBadge small />}
                   </span>
-                ) : (
-                  "Send my enquiry"
-                )}
-              </Button>
-            </div>
-
-            <p className="text-sm text-muted">
-              Read our{" "}
-              <a href="/privacy-policy.html" target="_blank" rel="noopener" className="font-semibold text-lilac underline underline-offset-4">
-                Privacy Policy (opens in a new tab)
-              </a>
-              .
-            </p>
+                  <span className="block text-sm tabular-nums text-muted">AED {formatAed(pkg.priceAed)} / month</span>
+                </span>
+              </label>
+            ))}
           </div>
-        )}
+          <FieldError id="lf-package_id-error" message={errors.package_id} />
+        </fieldset>
+
+        <fieldset className="min-w-0">
+          <legend className="text-sm font-semibold text-ink">
+            Add-ons
+            <Requirement required={false} />
+          </legend>
+          <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+            {ADD_ONS.map((addOn, index) => (
+              <label key={addOn.id} className={optionClass}>
+                <input
+                  type="checkbox"
+                  checked={addOns.includes(addOn.id)}
+                  onChange={(event) => {
+                    markStarted();
+                    onAddOnsChange(event.target.checked ? [...addOns, addOn.id] : addOns.filter((id) => id !== addOn.id));
+                  }}
+                  data-field={index === 0 ? "addon_ids" : undefined}
+                  className="size-5 shrink-0 accent-violet"
+                />
+                <span>
+                  <span className="block font-semibold text-ink">{addOn.name}</span>
+                  <span className="block text-sm text-muted">
+                    {addOn.detail} · AED {formatAed(addOn.priceAed)}
+                  </span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          <TextField
+            id="lf-name"
+            field="name"
+            label="Name"
+            required
+            autoComplete="name"
+            maxLength={LIMITS.name}
+            value={values.name}
+            error={errors.name}
+            describedBy={describedBy("name")}
+            onChange={(value) => update("name", value)}
+            onBlur={() => checkField("name")}
+          />
+          <TextField
+            id="lf-business_name"
+            field="business_name"
+            label="Business name"
+            required
+            autoComplete="organization"
+            maxLength={LIMITS.businessName}
+            value={values.business_name}
+            error={errors.business_name}
+            describedBy={describedBy("business_name")}
+            onChange={(value) => update("business_name", value)}
+            onBlur={() => checkField("business_name")}
+          />
+        </div>
+
+        <fieldset className="min-w-0" aria-describedby={describedBy("contact_method", "lf-contact-note")}>
+          <legend className="text-sm font-semibold text-ink">
+            How would you like us to reply?
+            <Requirement required />
+          </legend>
+          <p id="lf-contact-note" className="mt-1 text-sm text-muted">
+            {CONSENT.contactNote}
+          </p>
+          <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-2.5">
+            {CONTACT_METHODS.map((method, index) => (
+              <label
+                key={method.id}
+                className="flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border border-white/10 bg-night px-2 text-center text-sm font-semibold text-ink transition-colors has-[:checked]:border-violet has-[:checked]:bg-violet/10 sm:text-[15px]"
+              >
+                <input
+                  type="radio"
+                  name="lf-contact"
+                  value={method.id}
+                  checked={values.contact_method === method.id}
+                  onChange={() => chooseMethod(method.id)}
+                  data-field={index === 0 ? "contact_method" : undefined}
+                  aria-invalid={Boolean(errors.contact_method)}
+                  className="size-4 shrink-0 accent-violet"
+                />
+                {method.label}
+              </label>
+            ))}
+          </div>
+          <FieldError id="lf-contact_method-error" message={errors.contact_method} />
+        </fieldset>
+
+        <div>
+          <label htmlFor="lf-phone_number" className="block text-sm font-semibold text-ink">
+            Phone / WhatsApp number
+            <Requirement required={phoneRequired} />
+          </label>
+          <div className="flex gap-2">
+            <select
+              aria-label="Country code"
+              autoComplete="tel-country-code"
+              value={values.phone_country}
+              onChange={(event) => update("phone_country", event.target.value)}
+              onBlur={() => values.phone_number && checkField("phone_number")}
+              className={`${inputClass(false)} w-36 shrink-0 px-3 sm:w-44`}
+            >
+              {PHONE_COUNTRIES.map((country) => (
+                <option key={country.code} value={country.code}>
+                  {country.label}
+                </option>
+              ))}
+            </select>
+            <input
+              id="lf-phone_number"
+              data-field="phone_number"
+              type="tel"
+              inputMode="tel"
+              autoComplete={values.phone_country === "other" ? "tel" : "tel-national"}
+              placeholder={values.phone_country === "971" ? "50 123 4567" : values.phone_country === "other" ? "+code number" : ""}
+              maxLength={24}
+              value={values.phone_number}
+              aria-invalid={Boolean(errors.phone_number)}
+              aria-describedby={describedBy("phone_number")}
+              onChange={(event) => update("phone_number", event.target.value)}
+              onBlur={() => checkField("phone_number")}
+              className={`${inputClass(Boolean(errors.phone_number))} min-w-0 flex-1`}
+            />
+          </div>
+          <FieldError id="lf-phone_number-error" message={errors.phone_number} />
+        </div>
+
+        <TextField
+          id="lf-email"
+          field="email"
+          label="Email"
+          required={emailRequired}
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          maxLength={LIMITS.email}
+          value={values.email}
+          error={errors.email}
+          describedBy={describedBy("email")}
+          onChange={(value) => update("email", value)}
+          onBlur={() => checkField("email")}
+        />
+
+        <div>
+          <label htmlFor="lf-message" className="block text-sm font-semibold text-ink">
+            Message
+            <Requirement required={false} />
+          </label>
+          <textarea
+            id="lf-message"
+            data-field="message"
+            rows={3}
+            maxLength={LIMITS.message}
+            value={values.message}
+            aria-invalid={Boolean(errors.message)}
+            aria-describedby={describedBy("message", "lf-message-count")}
+            onChange={(event) => update("message", event.target.value)}
+            onBlur={() => checkField("message")}
+            className={`${inputClass(Boolean(errors.message))} h-auto w-full py-3`}
+          />
+          <p id="lf-message-count" className="mt-1 text-right text-xs text-muted">
+            {values.message.length.toLocaleString("en-US")} / {LIMITS.message.toLocaleString("en-US")} characters
+          </p>
+          <FieldError id="lf-message-error" message={errors.message} />
+        </div>
+
+        <label className="flex cursor-pointer gap-3 text-sm text-ink">
+          <input
+            type="checkbox"
+            checked={values.marketing_opt_in}
+            onChange={(event) => update("marketing_opt_in", event.target.checked)}
+            className="mt-0.5 size-5 shrink-0 accent-violet"
+          />
+          <span>
+            {CONSENT.marketingOptIn}
+            <Requirement required={false} />
+          </span>
+        </label>
+
+        {/* Spam trap: hidden from people and assistive technology */}
+        <div aria-hidden="true" className="absolute -left-[10000px] top-auto size-px overflow-hidden">
+          <label htmlFor="lf-website">Leave this field empty</label>
+          <input
+            id="lf-website"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={values.website}
+            onChange={(event) => setValues((current) => ({ ...current, website: event.target.value }))}
+          />
+        </div>
+
+        <Button type="submit" fullWidth disabled={busy} aria-describedby="lf-status">
+          {busy ? (
+            <span className="inline-flex items-center gap-2">
+              <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+              Sending your enquiry…
+            </span>
+          ) : (
+            "Send my enquiry"
+          )}
+        </Button>
+
+        <p className="text-sm text-muted">
+          Read our{" "}
+          <a href="/privacy-policy.html" target="_blank" rel="noopener" className="font-semibold text-lilac underline underline-offset-4">
+            Privacy Policy (opens in a new tab)
+          </a>
+          .
+        </p>
       </fieldset>
 
       <div id="lf-status" role="status" aria-live="polite" className="mt-4 text-sm text-ink empty:hidden">
@@ -870,51 +764,6 @@ function TextField({
         onBlur={onBlur}
         className={`${inputClass(Boolean(error))} w-full`}
       />
-      <FieldError id={`${id}-error`} message={error} />
-    </div>
-  );
-}
-
-interface SelectFieldProps {
-  id: string;
-  field: LeadField;
-  label: string;
-  hint?: ReactNode;
-  options: string[];
-  value: string;
-  error?: string;
-  onChange: (value: string) => void;
-}
-
-function SelectField({ id, field, label, hint, options, value, error, onChange }: SelectFieldProps) {
-  const hintId = hint ? `${id}-hint` : undefined;
-  return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-ink">
-        {label}
-        <Requirement required={false} />
-      </label>
-      <select
-        id={id}
-        data-field={field}
-        value={value}
-        aria-invalid={Boolean(error)}
-        aria-describedby={[error ? `${id}-error` : "", hintId ?? ""].filter(Boolean).join(" ") || undefined}
-        onChange={(event) => onChange(event.target.value)}
-        className={`${inputClass(Boolean(error))} w-full px-3`}
-      >
-        <option value="">Select…</option>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      {hint && (
-        <p id={hintId} className="mt-1 text-xs text-muted">
-          {hint}
-        </p>
-      )}
       <FieldError id={`${id}-error`} message={error} />
     </div>
   );

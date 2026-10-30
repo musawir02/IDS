@@ -1,4 +1,4 @@
-import { AddOnId, ContactMethod, LeadErrors, LeadField, PackageId } from "../types";
+import { AddOnId, ContactMethod, LeadErrors, PackageId } from "../types";
 import { ADD_ONS, PACKAGES, PHONE_COUNTRIES } from "./content";
 
 // Form rules shared by the browser and the /api/lead endpoint, so the two can't disagree.
@@ -6,13 +6,9 @@ import { ADD_ONS, PACKAGES, PHONE_COUNTRIES } from "./content";
 export const LIMITS = {
   name: 100,
   businessName: 120,
-  businessType: 80,
-  adBudget: 80,
   email: 254,
   message: 1000,
 };
-
-export const STEP_ONE_FIELDS: LeadField[] = ["package_id", "addon_ids", "business_type", "ad_budget"];
 
 export const CONTACT_METHODS: { id: ContactMethod; label: string }[] = [
   { id: "whatsapp", label: "WhatsApp" },
@@ -23,8 +19,6 @@ export const CONTACT_METHODS: { id: ContactMethod; label: string }[] = [
 export interface CleanEnquiry {
   packageId: PackageId;
   addOnIds: AddOnId[];
-  businessType: string;
-  adBudget: string;
   name: string;
   businessName: string;
   contactMethod: ContactMethod;
@@ -116,12 +110,6 @@ export function validateEnquiry(input: Record<string, unknown>): ValidationResul
     errors.addon_ids = "Choose add-ons from the list.";
   }
 
-  const businessType = cleanLine(input.business_type);
-  if (businessType.length > LIMITS.businessType) errors.business_type = "Choose a business type from the list.";
-
-  const adBudget = cleanLine(input.ad_budget);
-  if (adBudget.length > LIMITS.adBudget) errors.ad_budget = "Choose an ad budget from the list.";
-
   const name = cleanLine(input.name);
   if (name.length < 2) errors.name = "Enter your name.";
   else if (name.length > LIMITS.name) errors.name = `Keep your name under ${LIMITS.name} characters.`;
@@ -173,8 +161,6 @@ export function validateEnquiry(input: Record<string, unknown>): ValidationResul
     value: {
       packageId,
       addOnIds,
-      businessType,
-      adBudget,
       name,
       businessName,
       contactMethod,

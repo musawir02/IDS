@@ -47,19 +47,19 @@ export default function PackageSelector({ selected, onSelect, hintId }: PackageS
             tabIndex={isSelected ? 0 : -1}
             onClick={() => onSelect(pkg.id)}
             onKeyDown={(event) => move(event, index)}
-            className={`min-h-16 rounded-2xl border p-3 text-left transition-colors ${
-              isSelected ? "border-violet bg-violet/15 ring-1 ring-violet" : "border-lilac/20 bg-card"
+            className={`min-h-16 rounded-xl border p-3 text-left transition-colors ${
+              isSelected ? "border-violet bg-violet/10 ring-1 ring-violet" : "border-white/10 bg-card"
             }`}
           >
-            <span className="flex items-center gap-1.5 text-[15px] font-bold leading-tight text-ink">
-              {isSelected && <Check aria-hidden="true" className="size-4 shrink-0 text-lilac" />}
-              <span className="tabular-nums text-lilac">{pkg.number}</span>
+            <span className="flex items-center gap-1.5 text-[15px] font-semibold leading-tight text-ink">
+              <span className="tabular-nums text-muted">{pkg.number}</span>
               <span>{pkg.name}</span>
               {pkg.recommended && <Crown aria-hidden="true" className="size-3.5 shrink-0 text-lilac" />}
             </span>
             <span className="mt-1 block text-sm tabular-nums text-muted">AED {formatAed(pkg.priceAed)}/month</span>
             {isSelected && (
-              <span aria-hidden="true" className="mt-1 block text-[12px] font-semibold uppercase tracking-wider text-lilac">
+              <span aria-hidden="true" className="mt-1 flex items-center gap-1 text-xs font-semibold text-lilac">
+                <Check className="size-3.5" />
                 Selected
               </span>
             )}

@@ -37,7 +37,7 @@ export default function MobileActionBar({ selected, onEnquire, heroRef, enquiryR
     <div
       inert={!show}
       aria-hidden={!show}
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-lilac/20 bg-night/95 px-4 pt-3 backdrop-blur-md transition-transform duration-300 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-night px-4 pt-3 transition-transform duration-200 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden ${
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
@@ -49,7 +49,7 @@ export default function MobileActionBar({ selected, onEnquire, heroRef, enquiryR
           packageId={selected}
           className="shrink-0"
         />
-        <Button arrow fullWidth className="min-w-0" onClick={() => onEnquire(selected, "mobile_bar")}>
+        <Button fullWidth className="min-w-0" onClick={() => onEnquire(selected, "mobile_bar")}>
           Enquire · {pkg.name}
         </Button>
       </div>

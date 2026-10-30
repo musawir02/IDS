@@ -16,14 +16,12 @@ interface PackagesProps {
 
 export default function Packages({ selected, onSelect, onEnquire, addOns, onAddAddOn, onRemoveAddOn }: PackagesProps) {
   return (
-    <section id="packages" aria-labelledby="packages-title" className="bg-plum py-16 lg:py-24">
+    <section id="packages" aria-labelledby="packages-title" className="bg-plum py-14 lg:py-20">
       <div className="container-lp">
-        <div data-reveal className="max-w-2xl">
-          <h2 id="packages-title" className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Choose your package
-          </h2>
-          <p className="mt-3 text-base text-muted sm:text-lg">Four monthly packages. Growth is our recommended package.</p>
-        </div>
+        <h2 id="packages-title" className="text-3xl font-bold tracking-tight sm:text-4xl">
+          Choose your package
+        </h2>
+        <p className="mt-2 text-muted sm:text-lg">Four monthly packages. Growth is our recommended package.</p>
 
         {/* Tablet and desktop: the poster's 2×2 grid */}
         <div className="mt-10 hidden gap-6 md:grid md:grid-cols-2">
@@ -36,11 +34,12 @@ export default function Packages({ selected, onSelect, onEnquire, addOns, onAddA
 
         {/* Mobile: tap a package, then see all of it */}
         <div className="mt-8 md:hidden">
-          <p id="package-picker-hint" className="text-sm font-medium text-ink">
+          <p id="package-picker-hint" className="text-sm text-muted">
             Tap a package to see everything included.
           </p>
           <PackageSelector selected={selected} onSelect={onSelect} hintId="package-picker-hint" />
-          <div key={selected} className="lp-fade mt-5">
+          {/* Keyed by package, so each one opens with its inherited list closed */}
+          <div key={selected} className="mt-5">
             <PackageCard pkg={getPackage(selected)} idPrefix="package-mobile" showFootnote onEnquire={onEnquire} />
           </div>
         </div>

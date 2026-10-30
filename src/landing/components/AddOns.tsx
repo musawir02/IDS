@@ -14,28 +14,24 @@ interface AddOnsProps {
 /** The poster's light "Optional add-ons" strip */
 export default function AddOns({ selected, onAdd, onRemove }: AddOnsProps) {
   return (
-    <section aria-labelledby="addons-title" className="mt-12 rounded-3xl bg-strip p-6 text-strip-ink sm:p-8">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,14rem)_1fr_1fr] lg:items-center lg:gap-6">
-        <div>
-          <h3 id="addons-title" className="text-xl font-extrabold uppercase tracking-tight">
+    <section aria-labelledby="addons-title" className="mt-12 rounded-2xl bg-strip p-6 text-strip-ink sm:p-8">
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="lg:col-span-2">
+          <h3 id="addons-title" className="text-xl font-bold tracking-tight">
             Optional add-ons
           </h3>
-          <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.18em] text-strip-muted">
-            Enhance your package
-          </p>
+          <p className="mt-1 text-strip-muted">Enhance your package</p>
         </div>
         {ADD_ONS.map((addOn) => {
           const Icon = ICONS[addOn.id];
           const added = selected.includes(addOn.id);
           return (
-            <div key={addOn.id} className="flex flex-wrap items-center gap-4 rounded-2xl bg-white/70 p-4 ring-1 ring-violet-deep/10">
-              <span aria-hidden="true" className="grid size-12 shrink-0 place-items-center rounded-full bg-violet-deep/10 text-violet-deep">
-                <Icon className="size-6" />
-              </span>
+            <div key={addOn.id} className="flex flex-wrap items-center gap-4 rounded-xl border border-strip-ink/10 bg-white p-4">
+              <Icon aria-hidden="true" className="size-6 shrink-0 text-violet-deep" />
               <div className="min-w-0 flex-1">
-                <p className="font-bold">{addOn.name}</p>
+                <p className="font-semibold">{addOn.name}</p>
                 <p className="text-sm text-strip-muted">{addOn.detail}</p>
-                <p className="text-lg font-extrabold tabular-nums text-violet-deep">AED {formatAed(addOn.priceAed)}</p>
+                <p className="mt-0.5 text-lg font-bold tabular-nums">AED {formatAed(addOn.priceAed)}</p>
               </div>
               {/* On phones the button takes its own full-width row, so the details aren't squeezed */}
               <div className="max-sm:w-full">
