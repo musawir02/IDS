@@ -1,0 +1,193 @@
+/* Styles for the Digital Marketing Packages landing page only. Tailwind scans just this
+   folder (and the shared Logo component), so nothing here leaks into the main site. */
+@import "tailwindcss" source(none);
+@source "./";
+@source "../components/Logo.tsx";
+
+@theme {
+  /* System font stacks: no web-font downloads and no remote font imports */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+
+  /* Approximations of the poster's colours, to be replaced with sampled values */
+  --color-night: #0b0713;
+  --color-plum: #150f1f;
+  --color-card: #17121f;
+  --color-ink: #edebf2;
+  --color-muted: #a7a3b3;
+  --color-lilac: #c4a1ff;
+  --color-violet: #9333ea;
+  --color-violet-deep: #7e22ce;
+  --color-strip: #f4f1fa;
+  --color-strip-ink: #16151c;
+  --color-strip-muted: #5d5968;
+  --color-whatsapp: #25d366;
+  --color-error: #ffb4c4;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-night);
+    color-scheme: dark;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--color-night);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Faint film grain on the night background */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lilac);
+    outline-offset: 3px;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@utility container-lp {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* The poster's "Packages" wordmark. Every colour stop keeps at least 3:1 on night for large text. */
+.lp-gradient-text {
+  background-image: linear-gradient(90deg, #efe3ff 0%, #c4a1ff 45%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lp-hero-glow {
+  background: radial-gradient(closest-side, rgb(147 51 234 / 0.32), rgb(147 51 234 / 0) 70%);
+}
+
+.lp-growth-glow {
+  box-shadow:
+    0 0 0 1px rgb(168 85 247 / 0.65),
+    0 0 56px -10px rgb(147 51 234 / 0.6);
+}
+
+/* Entrance animations: short, once, and switched off for reduced motion */
+@keyframes lp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lp-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.lp-rise {
+  animation: lp-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lp-fade {
+  animation: lp-fade 0.2s ease-out both;
+}
+
+.lp-step {
+  animation: lp-rise 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lp-draw {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: lp-draw 0.6s 0.15s ease-out forwards;
+}
+
+/* Scroll reveal: only once the observer is running, so content never stays hidden without it */
+[data-reveal] {
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lp-reveal-ready [data-reveal]:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* Expandable regions animate their height through the grid track */
+.lp-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.lp-collapse[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.lp-collapse > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .lp-reveal-ready [data-reveal]:not(.is-visible) {
+    opacity: 1;
+    transform: none;
+  }
+}

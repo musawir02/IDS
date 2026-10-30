@@ -11,6 +11,15 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rollupOptions: {
+        // The main site and the Digital Marketing Packages landing page (/digital-marketing/)
+        input: {
+          index: path.resolve(__dirname, 'index.html'),
+          'digital-marketing': path.resolve(__dirname, 'digital-marketing/index.html'),
+        },
+      },
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
