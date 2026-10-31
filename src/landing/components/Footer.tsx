@@ -8,7 +8,6 @@ export default function Footer() {
         <div className="space-y-2 text-sm text-muted">
           <Logo height={56} />
           <p className="pt-3">{BUSINESS.legalEntity}</p>
-          <p>{BUSINESS.vatDetails}</p>
         </div>
         <nav aria-label="Legal and site links">
           <ul className="flex flex-col gap-1 text-sm">

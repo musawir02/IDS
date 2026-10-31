@@ -14,9 +14,12 @@ interface LeadResultProps {
   phase: ResultPhase;
   reference: string;
   name: string;
+  businessName: string;
   packageId: PackageId;
   addOns: AddOnId[];
   contactMethod: string;
+  phone: string;
+  email: string;
   message: string;
   onTryAgain: () => void;
   onSendAgain: () => void;
@@ -36,10 +39,21 @@ function Panel({ icon, children }: { icon: ReactNode; children: ReactNode }) {
 const headingClass = "text-2xl font-bold tracking-tight outline-none";
 
 const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function LeadResult(
-  { phase, reference, name, packageId, addOns, contactMethod, message, onTryAgain, onSendAgain, onEdit, onReset },
+  { phase, reference, name, businessName, packageId, addOns, contactMethod, phone, email, message, onTryAgain, onSendAgain, onEdit, onReset },
   ref,
 ) {
   const pkg = getPackage(packageId);
+  const enquiryMessage = notSentMessage({
+    packageId,
+    addOnIds: addOns,
+    name,
+    businessName,
+    contactMethod,
+    phone,
+    email,
+    message,
+    ref: reference,
+  });
 
   if (phase === "sent") {
     return (
@@ -78,7 +92,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
             Try again
           </Button>
           <WhatsAppButton
-            message={notSentMessage(packageId, addOns, message, reference)}
+            message={enquiryMessage}
             label="Send on WhatsApp"
             location="enquiry_not_sent"
             packageId={packageId}
@@ -126,7 +140,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
       </p>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <WhatsAppButton
-          message={notSentMessage(packageId, addOns, message, reference)}
+          message={enquiryMessage}
           label="Send on WhatsApp"
           location="enquiry_rate_limited"
           packageId={packageId}

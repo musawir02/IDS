@@ -18,7 +18,7 @@ export const BRAND_NAME = "IDS – Impulse Digital Solutions";
 export const HERO = {
   title: "Digital Marketing Packages",
   tagline: "Strategy. Content. Ads. Real Growth.",
-  // Draft copy from the approved proposal (Part B6), awaiting confirmation
+  // Copy from the approved proposal (Part B6), confirmed 2026-10-31
   subhead:
     "Social media management, content creation, Meta & Google Ads, SEO, AEO and GEO in four monthly packages.",
 };
@@ -111,7 +111,7 @@ export const ADD_ONS: AddOn[] = [
 export const DEFAULT_PACKAGE: PackageId = "growth";
 
 /**
- * Part B1 (awaiting confirmation): a higher package's post counts replace the counts it
+ * Part B1 (confirmed 2026-10-31): a higher package's post counts replace the counts it
  * inherits, so Growth is 9 posts in total, not 6 + 9. Set to false if the counts add up.
  */
 export const POST_COUNTS_REPLACE = true;
@@ -142,7 +142,7 @@ export function inheritedFeatures(id: PackageId) {
   return groups;
 }
 
-// Row labels are a draft for confirmation (Part B4); every value comes from the poster.
+// Row labels confirmed 2026-10-31 (Part B4); every value comes from the poster.
 const all = { starter: true, growth: true, professional: true, premium: true };
 
 export const COMPARE_PRICE_ROW_LABEL = "Price";
@@ -241,7 +241,7 @@ export const FAQ: FaqItem[] = [
   },
 ];
 
-// Draft wording from the approved proposal (Part B10), awaiting confirmation
+// Wording from the approved proposal (Part B10), confirmed 2026-10-31
 export const NEXT_STEPS = [
   "We receive your enquiry.",
   "We contact you using your preferred method.",
@@ -256,8 +256,7 @@ export const CONTACT = {
 };
 
 export const BUSINESS = {
-  legalEntity: "[TO CONFIRM: legal entity name]",
-  vatDetails: "[TO CONFIRM: VAT details to display, if any]",
+  legalEntity: "Impulse Digital Solutions",
 };
 
 export const PHONE_COUNTRIES = [
@@ -274,9 +273,9 @@ export const PHONE_COUNTRIES = [
   { code: "other", label: "Other (type +code)" },
 ];
 
-// Consent wording is a draft awaiting legal approval (Part C14). Bump the version when it changes.
+// Consent wording approved 2026-10-31 (Part C14). Bump the version when it changes.
 export const CONSENT = {
-  version: "draft-2026-10-30",
+  version: "2026-10-31",
   contactNote: "We'll use this only to respond to your enquiry.",
   marketingOptIn: "Send me occasional offers and updates from IDS. You can opt out anytime.",
   /** Tracking consent banner text. Empty until approved: the banner, and so tracking, can't appear before then. */

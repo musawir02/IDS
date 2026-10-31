@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { AddOnId, LeadErrors, LeadField, LeadPayload, PackageId } from "../../types";
 import { ADD_ONS, CONSENT, formatAed, PACKAGES, PHONE_COUNTRIES } from "../content";
-import { CONTACT_METHODS, LIMITS, refFromSubmissionId, validateEnquiry } from "../validation";
+import { CONTACT_METHODS, LIMITS, normalizePhone, refFromSubmissionId, validateEnquiry } from "../validation";
 import { readCampaign, track } from "../../lib/analytics";
 import Button from "./ui/Button";
 import RecommendedBadge from "./ui/RecommendedBadge";
@@ -422,9 +422,12 @@ export default function LeadForm({ packageId, onPackageChange, addOns, onAddOnsC
         phase={phase as ResultPhase}
         reference={session.current.ref}
         name={values.name}
+        businessName={values.business_name}
         packageId={packageId}
         addOns={addOns}
         contactMethod={values.contact_method}
+        phone={normalizePhone(values.phone_country, values.phone_number) || ""}
+        email={values.email}
         message={values.message}
         onTryAgain={() => void send(false)}
         onSendAgain={() => void send(true)}
