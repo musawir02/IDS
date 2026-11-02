@@ -3,6 +3,7 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
+import { createContactHandler } from "./server/contact";
 import {
   logStartupWarning,
   parseTrustProxy,
@@ -104,15 +105,7 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// Contact Form submission mock endpoint to add realism
-app.post("/api/contact", (req, res) => {
-  const { name, company, email, phone, location, service, notes } = req.body;
-  if (!name || !email) {
-    return res.status(400).json({ error: "Name and Email are required." });
-  }
-  console.log("Contact submission received:", { name, company, email, phone, location, service, notes });
-  return res.json({ success: true, message: "Thank you! Your strategic call request has been successfully registered." });
-});
+app.post("/api/contact", createContactHandler());
 
 // Digital Marketing Packages landing page: enquiries by email, separate from /api/contact
 registerEnquiryRoutes(app, { perIpLimit: trustProxy.perIpLimit });

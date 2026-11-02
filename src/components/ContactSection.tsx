@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { CALL_EXPECTATIONS, SERVICE_OPTIONS } from "../data";
-import { Phone, Mail, Globe, MapPin, CheckCircle2, ShieldAlert, Sparkles, Loader2, Info, FileText, Linkedin } from "lucide-react";
+import { Phone, Mail, CheckCircle2, ShieldAlert, Loader2, Info, Linkedin } from "lucide-react";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -16,10 +16,11 @@ export default function ContactSection() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [secureToken, setSecureToken] = useState<string | null>(null);
+  const [enquiryRef, setEnquiryRef] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     if (!formData.fullName || !formData.email) {
       setError("Please fill out at least your Full Name and Email Address.");
       return;
@@ -28,36 +29,30 @@ export default function ContactSection() {
     setLoading(true);
     setError(null);
     setSuccess(null);
+    setEnquiryRef(null);
 
     try {
-      let successMessage = "Thank you! Your strategic call submission was successful.";
-      try {
-        const resp = await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: formData.fullName,
-            company: formData.companyName,
-            email: formData.email,
-            phone: formData.phoneNumber,
-            location: formData.location,
-            service: formData.service,
-            notes: formData.notes
-          })
-        });
-
-        if (resp.ok) {
-          const resData = await resp.json();
-          successMessage = resData.message || successMessage;
-        }
-      } catch (err) {
-        console.warn("Backend API offline, completing mock submission", err);
+      const resp = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(35000),
+        body: JSON.stringify({
+          name: formData.fullName,
+          company: formData.companyName,
+          email: formData.email,
+          phone: formData.phoneNumber,
+          location: formData.location,
+          service: formData.service,
+          notes: formData.notes
+        })
+      });
+      const resData = await resp.json();
+      if (!resp.ok || resData.success !== true) {
+        setError(resData.error || "Your enquiry was not confirmed. Please contact grow@impulsedigitalsolutions.us before resubmitting.");
+        return;
       }
-
-      setSuccess(successMessage);
-      // Generate a mock unique reference token for cyber realism
-      const randomToken = "IDS SEC " + Math.floor(100000 + Math.random() * 900000);
-      setSecureToken(randomToken);
+      setSuccess(resData.message);
+      setEnquiryRef(resData.ref);
 
       // Reset form variables
       setFormData({
@@ -69,8 +64,8 @@ export default function ContactSection() {
         service: "Full Package All Services",
         notes: ""
       });
-    } catch (err: any) {
-      setError(err.message || "An unexpected issue occurred. Please try again.");
+    } catch {
+      setError("We couldn’t confirm delivery because the connection failed. Your enquiry may have been sent. Please contact grow@impulsedigitalsolutions.us before resubmitting.");
     } finally {
       setLoading(false);
     }
@@ -167,41 +162,14 @@ export default function ContactSection() {
                   <div className="p-6 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-start gap-4">
                     <CheckCircle2 className="w-8 h-8 text-emerald-400 shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-sm font-display font-bold text-white block">Strategic Inquiry Successfully Locked</span>
+                      <span className="text-sm font-display font-bold text-white block">Enquiry Sent</span>
                       <p className="text-xs text-slate-300 mt-2 leading-relaxed">{success}</p>
                     </div>
                   </div>
 
-                  {/* Cybersecure handshake details panel */}
                   <div className="p-6 bg-slate-950/80 border border-slate-800 rounded-2xl space-y-4 font-mono text-xs">
-                    <div className="flex items-center justify-between border-b border-white/5 pb-3">
-                      <span className="text-slate-500 text-[10px] uppercase font-mono tracking-wider">Handshake Status</span>
-                      <span className="text-emerald-400 font-bold uppercase tracking-widest animate-pulse">[ SECURE PROTOCOL ACTIVE ]</span>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4 text-slate-300">
-                      <div>
-                        <span className="text-slate-500 text-[10px] block">REF TOKEN:</span>
-                        <span className="text-white text-xs">{secureToken}</span>
-                      </div>
-                      <div>
-                        <span className="text-slate-500 text-[10px] block">SECURITY DEPTH:</span>
-                        <span className="text-white text-xs">Sha-256 Multiway</span>
-                      </div>
-                      <div>
-                        <span className="text-slate-500 text-[10px] block">SENSITIVE AUDIT:</span>
-                        <span className="text-ids-magenta text-xs">Initiated (AEO / SEO Gaps)</span>
-                      </div>
-                      <div>
-                        <span className="text-slate-500 text-[10px] block">DUAL EXPEDITE:</span>
-                        <span className="text-white text-xs">Huntington Beach & Dubai Core</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 mt-4 text-[10px] text-slate-400 border-t border-white/5 pt-4">
-                      <FileText className="w-4 h-4 text-ids-purple shrink-0" />
-                      <span>An IDS corporate lead advisor will review this standing and ping you within 3 business hours.</span>
-                    </div>
+                    <p className="text-slate-300 break-all">Enquiry reference: {enquiryRef}</p>
+                    <p className="text-slate-400">Our team will review your enquiry and contact you to arrange a call.</p>
 
                     <button 
                       onClick={() => setSuccess(null)}
@@ -217,7 +185,7 @@ export default function ContactSection() {
                     <div className="mb-6 p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl flex items-start gap-3">
                       <ShieldAlert className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-xs font-semibold text-rose-300 block">Submission Blocked</span>
+                        <span className="text-xs font-semibold text-rose-300 block">Enquiry Status</span>
                         <p className="text-[11px] text-slate-300 mt-0.5">{error}</p>
                       </div>
                     </div>
@@ -232,6 +200,7 @@ export default function ContactSection() {
                         <label id="lbl-fullname" htmlFor="fullName" className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-semibold group-focus-within:text-ids-magenta transition-colors">Full Name *</label>
                         <input
                           id="fullName"
+                          maxLength={150}
                           type="text"
                           className="w-full px-4 py-3 rounded-xl bg-slate-950/40 border border-white/10 text-white font-sans text-xs focus:bg-slate-900/40 focus:border-ids-magenta focus:ring-1 focus:ring-ids-magenta outline-none transition-colors"
                           placeholder="Jane Doe"
@@ -245,6 +214,7 @@ export default function ContactSection() {
                         <label id="lbl-companyname" htmlFor="companyName" className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-semibold group-focus-within:text-ids-magenta transition-colors">Company Name</label>
                         <input
                           id="companyName"
+                          maxLength={200}
                           type="text"
                           className="w-full px-4 py-3 rounded-xl bg-slate-950/40 border border-white/10 text-white font-sans text-xs focus:bg-slate-900/40 focus:border-ids-magenta focus:ring-1 focus:ring-ids-magenta outline-none transition-colors"
                           placeholder="Acme Inc."
@@ -260,6 +230,7 @@ export default function ContactSection() {
                         <label id="lbl-email" htmlFor="email" className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-semibold group-focus-within:text-ids-magenta transition-colors">Email Address *</label>
                         <input
                           id="email"
+                          maxLength={254}
                           type="email"
                           className="w-full px-4 py-3 rounded-xl bg-slate-950/40 border border-white/10 text-white font-sans text-xs focus:bg-slate-900/40 focus:border-ids-magenta focus:ring-1 focus:ring-ids-magenta outline-none transition-colors"
                           placeholder="jane@company.com"
@@ -273,6 +244,7 @@ export default function ContactSection() {
                         <label id="lbl-phone" htmlFor="phoneNumber" className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-semibold group-focus-within:text-ids-magenta transition-colors">Phone Number</label>
                         <input
                           id="phoneNumber"
+                          maxLength={80}
                           type="tel"
                           className="w-full px-4 py-3 rounded-xl bg-slate-950/40 border border-white/10 text-white font-sans text-xs focus:bg-slate-900/40 focus:border-ids-magenta focus:ring-1 focus:ring-ids-magenta outline-none transition-colors"
                           placeholder="+1 (555) 000 0000"
@@ -288,6 +260,7 @@ export default function ContactSection() {
                         <label id="lbl-location" htmlFor="location" className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-semibold group-focus-within:text-ids-magenta transition-colors">Country / Location</label>
                         <input
                           id="location"
+                          maxLength={200}
                           type="text"
                           className="w-full px-4 py-3 rounded-xl bg-slate-950/40 border border-white/10 text-white font-sans text-xs focus:bg-slate-900/40 focus:border-ids-magenta focus:ring-1 focus:ring-ids-magenta outline-none transition-colors"
                           placeholder="e.g. California, USA"
@@ -318,6 +291,7 @@ export default function ContactSection() {
                       <label id="lbl-notes" htmlFor="notes" className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-semibold group-focus-within:text-ids-magenta transition-colors">Tell us about your business</label>
                       <textarea
                         id="notes"
+                          maxLength={5000}
                         rows={4}
                         className="w-full px-4 py-3 rounded-xl bg-slate-950/40 border border-white/10 text-white font-sans text-xs focus:bg-slate-900/40 focus:border-ids-magenta focus:ring-1 focus:ring-ids-magenta outline-none transition-colors resize-none"
                         placeholder="Describe your current IT standing, SEO goals, or expansion interests..."
@@ -346,7 +320,7 @@ export default function ContactSection() {
                       {loading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin text-white" />
-                          <span>Transmitting secure handshake...</span>
+                          <span>Sending enquiry...</span>
                         </>
                       ) : (
                         <span>Schedule Strategic Call</span>
