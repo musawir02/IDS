@@ -8,11 +8,15 @@ export const whatsappUrl = (message: string) =>
   `https://wa.me/${CONTACT.whatsappDigits}?text=${encodeURIComponent(message)}`;
 
 export const generalMessage = () =>
-  "Hi IDS, I'd like to know more about your Digital Marketing Packages. Ref: LP-DM";
+  "Hi IDS! I saw your digital marketing packages on your website. Could you help me choose the right package for my business?";
 
 export const packageMessage = (id: PackageId) => {
   const pkg = getPackage(id);
-  return `Hi IDS, I'm interested in the ${pkg.name} package (AED ${formatAed(pkg.priceAed)}/month). Ref: LP-DM-${pkg.id}`;
+  return [
+    `Hi IDS! I'm interested in your ${pkg.name} digital marketing package.`,
+    `AED ${formatAed(pkg.priceAed)}/month + VAT. Ad budget is separate.`,
+    "Could we discuss whether this package is a good fit for my business and how to get started?",
+  ].join("\n\n");
 };
 
 export interface EnquiryDetails {
@@ -34,23 +38,36 @@ export const notSentMessage = (details: EnquiryDetails) => {
   const fields: [string, string | undefined][] = [
     ["Name", details.name],
     ["Business", details.businessName],
-    ["Package", `${pkg.name} (AED ${formatAed(pkg.priceAed)}/month)`],
+    ["Package", `${pkg.name} — AED ${formatAed(pkg.priceAed)}/month + VAT (ad budget separate)`],
     ["Add-ons", addOns.join(", ")],
-    ["Contact me by", CONTACT_METHODS.find((method) => method.id === details.contactMethod)?.label],
+    ["Preferred reply", CONTACT_METHODS.find((method) => method.id === details.contactMethod)?.label],
     ["Phone", details.phone],
     ["Email", details.email],
     ["Message", details.message],
   ];
   return [
-    "Hi IDS, I'd like to enquire about a Digital Marketing Package.",
+    "Hi IDS! I'd like to discuss digital marketing for my business. Here are my details:",
     fields
       .filter(([, value]) => value?.trim())
       .map(([label, value]) => `${label}: ${value!.trim()}`)
       .join("\n"),
-    `Ref: ${details.ref}`,
-  ].join("\n\n");
+    "Could you review my requirements and let me know the next steps?",
+    details.ref.trim() ? `Enquiry reference: ${details.ref.trim()}` : "",
+  ].filter(Boolean).join("\n\n");
 };
 
 /** Draft offered when it isn't known whether the enquiry email arrived */
 export const uncertainMessage = (id: PackageId, ref: string) =>
-  `Hi IDS, I sent an enquiry about the ${getPackage(id).name} package from your website (Ref ${ref}) but couldn't confirm it went through.`;
+  [
+    `Hi IDS! I tried submitting an enquiry about your ${getPackage(id).name} package on your website, but couldn't confirm it reached you.`,
+    `Enquiry reference: ${ref}`,
+    "Could you check whether you received it before I send it again?",
+  ].join("\n\n");
+
+/** Continue an accepted enquiry without making it look like a new package request. */
+export const followUpMessage = (id: PackageId, ref: string) =>
+  [
+    `Hi IDS! I'm following up on my website enquiry about your ${getPackage(id).name} package.`,
+    `Enquiry reference: ${ref}`,
+    "I'd like to discuss the next steps here on WhatsApp.",
+  ].join("\n\n");

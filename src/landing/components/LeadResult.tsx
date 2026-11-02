@@ -2,7 +2,7 @@ import { forwardRef, ReactNode } from "react";
 import { AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 import { AddOnId, PackageId } from "../../types";
 import { getPackage } from "../content";
-import { notSentMessage, packageMessage, uncertainMessage } from "../../lib/whatsapp";
+import { followUpMessage, notSentMessage, uncertainMessage } from "../../lib/whatsapp";
 import Button from "./ui/Button";
 import WhatsAppButton from "./ui/WhatsAppButton";
 
@@ -69,7 +69,7 @@ const LeadResult = forwardRef<HTMLHeadingElement, LeadResultProps>(function Lead
           Reference: <strong className="font-mono">{reference}</strong>
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <WhatsAppButton message={packageMessage(packageId)} label="Chat on WhatsApp" location="enquiry_sent" packageId={packageId} />
+          <WhatsAppButton message={followUpMessage(packageId, reference)} label="Chat on WhatsApp" location="enquiry_sent" packageId={packageId} />
           <Button variant="secondary" onClick={onReset}>
             Send another enquiry
           </Button>
